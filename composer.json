@@ -1,0 +1,20 @@
+{
+  "name": "asu/platform",
+  "description": "Automated System Unit runtime platform",
+  "type": "project",
+  "license": "proprietary",
+  "require": {
+    "php": ">=8.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "ASU\\": "src/"
+    }
+  },
+  "config": {
+    "sort-packages": true,
+    "optimize-autoloader": true
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true
+}
