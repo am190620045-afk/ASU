@@ -2,6 +2,8 @@
 
 namespace ASU\Core\Modules;
 
+use ASU\Core\Http\Router;
+
 interface ModuleInterface
 {
     public function getName(): string;
@@ -9,4 +11,6 @@ interface ModuleInterface
     public function register(): void;
 
     public function boot(): void;
+
+    public function registerRoutes(Router $router): void;
 }
