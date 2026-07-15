@@ -17,6 +17,8 @@ final class Kernel
     private ServiceManager $services;
     private ModuleManager $modules;
     private Registry $registry;
+    private State $state;
+    private Persistence $persistence;
 
     public function __construct()
     {
@@ -24,11 +26,16 @@ final class Kernel
         $this->services = new ServiceManager();
         $this->modules = new ModuleManager();
         $this->registry = new Registry();
+        $this->state = new State();
+        $this->persistence = new Persistence(dirname(__DIR__, 2) . '/runtime-state.json');
     }
 
     public function boot(): array
     {
         $this->registerServices();
+        $this->state->set('started_at', time());
+        $this->state->set('restored', $this->persistence->load());
+
         $lifecycle = $this->services->boot();
         $modules = $this->bootstrapModules();
         $this->booted = true;
@@ -38,6 +45,7 @@ final class Kernel
             'booted' => $this->booted,
             'lifecycle' => $lifecycle,
             'modules' => $modules,
+            'state' => $this->state->all(),
             'metadata' => Metadata::get(),
             'runtime' => Bootstrap::initialize(),
         ];
@@ -45,6 +53,7 @@ final class Kernel
 
     public function shutdown(): void
     {
+        $this->persistence->save($this->state->all());
         $this->modules->shutdown();
         $this->services->shutdown();
     }
