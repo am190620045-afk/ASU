@@ -8,6 +8,8 @@ use ASU\Core\Services\DatabaseService;
 use ASU\Core\Services\SecurityService;
 use ASU\Database\Connection\Database;
 use ASU\Core\Modules\ModuleManager;
+use ASU\Core\Modules\ModuleRouteBootstrap;
+use ASU\Core\Http\Router;
 use ASU\Security\Auth\Authentication;
 use ASU\Admin\AdminModule;
 use ASU\Admin\Dashboard\DashboardController;
@@ -39,6 +41,12 @@ class Application
 
         $this->modules->registerModule(new AdminModule());
         $this->modules->boot();
+    }
+
+    public function registerModuleRoutes(Router $router): void
+    {
+        $bootstrap = new ModuleRouteBootstrap();
+        $bootstrap->register($this->modules->modules(), $router);
     }
 
     public function services(): ServiceContainer
