@@ -2,7 +2,7 @@
 
 namespace ASU\Admin;
 
-use ASU\Modules\Contracts\ModuleInterface;
+use ASU\Core\Modules\ModuleInterface;
 
 class AdminModule implements ModuleInterface
 {
