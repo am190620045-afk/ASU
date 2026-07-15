@@ -2,15 +2,34 @@ name: ASU Runtime Smoke
 
 on:
   push:
+    branches:
+      - main
+      - release/*
   pull_request:
+    branches:
+      - main
 
 jobs:
   runtime-smoke:
+    name: Runtime Smoke Validation
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.4'
-      - run: composer install --no-interaction
-      - run: php scripts/runtime-smoke-test.php
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build runtime container
+        run: docker compose build
+
+      - name: Start runtime
+        run: docker compose up -d
+
+      - name: Wait for runtime
+        run: sleep 10
+
+      - name: Run smoke test
+        run: bash scripts/runtime-smoke-test.sh
+
+      - name: Shutdown
+        if: always()
+        run: docker compose down
