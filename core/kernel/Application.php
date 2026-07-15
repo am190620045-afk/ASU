@@ -4,7 +4,11 @@ namespace ASU\Core\Kernel;
 
 use ASU\Core\Config\ConfigLoader;
 use ASU\Core\Services\ServiceContainer;
+use ASU\Core\Services\DatabaseService;
+use ASU\Core\Services\SecurityService;
+use ASU\Database\Connection\Database;
 use ASU\Modules\Core\ModuleManager;
+use ASU\Security\Auth\Authentication;
 
 class Application
 {
@@ -20,8 +24,15 @@ class Application
     public function run(): void
     {
         $this->container->register('config', new ConfigLoader());
+        $this->container->register('database', new DatabaseService(new Database()));
+        $this->container->register('security', new SecurityService(new Authentication()));
         $this->container->register('modules', $this->modules);
 
         $this->modules->boot();
+    }
+
+    public function services(): ServiceContainer
+    {
+        return $this->container;
     }
 }
