@@ -9,6 +9,7 @@ use ASU\Core\Services\SecurityService;
 use ASU\Database\Connection\Database;
 use ASU\Modules\Core\ModuleManager;
 use ASU\Security\Auth\Authentication;
+use ASU\Admin\Dashboard\DashboardController;
 
 class Application
 {
@@ -27,10 +28,13 @@ class Application
     {
         $this->config->load(dirname(__DIR__, 2) . '/config/app.config.ini');
 
+        $security = new SecurityService(new Authentication());
+
         $this->container->register('config', $this->config);
         $this->container->register('database', new DatabaseService(new Database()));
-        $this->container->register('security', new SecurityService(new Authentication()));
+        $this->container->register('security', $security);
         $this->container->register('modules', $this->modules);
+        $this->container->register('dashboard', new DashboardController($security));
 
         $this->modules->boot();
     }
