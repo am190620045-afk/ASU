@@ -1,0 +1,9 @@
+{
+  "project": "ASU",
+  "version": "v0.2.0-beta-runtime.2",
+  "stage": "beta-runtime-demo",
+  "release_branch": "release/v0.2.0-beta-runtime.2",
+  "deployment": "docker-compose",
+  "runtime": "php-8.4-apache",
+  "status": "release-candidate"
+}
