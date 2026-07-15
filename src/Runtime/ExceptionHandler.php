@@ -12,6 +12,7 @@ final class ExceptionHandler
             'status' => 'error',
             'type' => $exception::class,
             'message' => $exception->getMessage(),
+            'runtime' => Metadata::get(),
         ];
     }
 }
