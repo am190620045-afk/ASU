@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace ASU\Runtime;
 
 use ASU\Config\Loader;
+use ASU\Module\Bootstrap as ModuleBootstrap;
 use ASU\Module\Discovery;
 use ASU\Module\Manager as ModuleManager;
+use ASU\Module\Registry;
 
 final class Kernel
 {
@@ -14,25 +16,28 @@ final class Kernel
     private Container $container;
     private ServiceManager $services;
     private ModuleManager $modules;
+    private Registry $registry;
 
     public function __construct()
     {
         $this->container = new Container();
         $this->services = new ServiceManager();
         $this->modules = new ModuleManager();
+        $this->registry = new Registry();
     }
 
     public function boot(): array
     {
         $this->registerServices();
         $lifecycle = $this->services->boot();
+        $modules = $this->bootstrapModules();
         $this->booted = true;
 
         return [
             'kernel' => 'ready',
             'booted' => $this->booted,
             'lifecycle' => $lifecycle,
-            'modules' => $this->discoverModules(),
+            'modules' => $modules,
             'metadata' => Metadata::get(),
             'runtime' => Bootstrap::initialize(),
         ];
@@ -53,8 +58,13 @@ final class Kernel
         $this->services->register('modules', $this->container->get('modules'));
     }
 
-    private function discoverModules(): array
+    private function bootstrapModules(): array
     {
-        return $this->container->get('modules')->scan(dirname(__DIR__, 2) . '/modules');
+        $bootstrap = new ModuleBootstrap();
+
+        return $bootstrap->initialize(
+            dirname(__DIR__, 2) . '/modules',
+            $this->registry
+        );
     }
 }
