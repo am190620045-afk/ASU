@@ -8,7 +8,8 @@ class HttpKernel
 {
     public function __construct(
         private Application $application,
-        private Router $router
+        private Router $router,
+        private ControllerResultResolver $resolver = new ControllerResultResolver()
     ) {
     }
 
@@ -16,10 +17,6 @@ class HttpKernel
     {
         $result = $this->router->dispatch($method, $path);
 
-        if ($result instanceof Response) {
-            return $result;
-        }
-
-        return new Response($result);
+        return $this->resolver->resolve($result);
     }
 }
