@@ -29,8 +29,16 @@ final class Manager
     public function boot(): array
     {
         foreach ($this->modules as $module) {
+            if ($module instanceof Lifecycle) {
+                $module->beforeBoot();
+            }
+
             if ($module instanceof Contract) {
                 $module->boot();
+            }
+
+            if ($module instanceof Lifecycle) {
+                $module->afterBoot();
             }
         }
 
@@ -40,8 +48,16 @@ final class Manager
     public function shutdown(): void
     {
         foreach ($this->modules as $module) {
+            if ($module instanceof Lifecycle) {
+                $module->beforeShutdown();
+            }
+
             if ($module instanceof Contract) {
                 $module->shutdown();
+            }
+
+            if ($module instanceof Lifecycle) {
+                $module->afterShutdown();
             }
         }
     }
