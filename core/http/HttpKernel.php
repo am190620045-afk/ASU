@@ -12,8 +12,14 @@ class HttpKernel
     ) {
     }
 
-    public function handle(string $method, string $path): mixed
+    public function handle(string $method, string $path): Response
     {
-        return $this->router->dispatch($method, $path);
+        $result = $this->router->dispatch($method, $path);
+
+        if ($result instanceof Response) {
+            return $result;
+        }
+
+        return new Response($result);
     }
 }
