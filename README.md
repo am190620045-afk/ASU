@@ -1,60 +1,79 @@
 # ASU
 
-## ASU v0.1.0 Build 2026.07.14.003
+## ASU v0.2.0-beta-runtime.2
 
-Automated System Unit (ASU) project foundation.
+Automated System Unit (ASU) runtime platform.
 
 ## Overview
 
-ASU is a modular application platform currently in the foundation stage. The current release establishes the project structure, configuration system, build entry point, and documentation framework.
+ASU is a modular application runtime platform with lifecycle management, persistence, validation, observability, metrics, and web runtime capabilities.
+
+The current milestone delivers a runnable containerized demo runtime through PHP 8.4 Apache.
 
 ## Current Status
 
-Foundation release.
+Runtime demo release preparation.
 
 Implemented:
-- Project directory structure
-- Application configuration
-- PowerShell build entry point
-- Module subsystem foundation
-- Web structure foundation
-- Build documentation
 
-Planned:
-- Core application modules
-- Database schema
-- Administration interface
-- User interface
-- Full build pipeline
+- Runtime Kernel
+- Module Lifecycle Hooks
+- Runtime Persistence
+- Runtime State Validation
+- Metrics Layer
+- Performance Layer
+- Observability Layer
+- Web Runtime Layer
+- Docker production foundation
+- Apache public document root deployment
+- Composer production build
+- OPcache runtime optimization
+
+## Web Endpoints
+
+```
+/
+/dashboard.php
+/health.php
+/metrics.php
+/modules.php
+/status.php
+```
+
+## Deployment
+
+See:
+
+```
+DEPLOYMENT.md
+```
+
+Quick start:
+
+```bash
+docker compose build
+docker compose up -d
+```
+
+Runtime:
+
+```
+http://localhost:8080/
+```
 
 ## Technology Stack
 
-- Open Server Panel 6.5.1
-- Apache
 - PHP 8.4+
-- MySQL 8.4
-- PowerShell 5.1 build scripts
-
-## Project Structure
-
-```
-ASU/
-├── config/       # Application configuration
-├── docs/         # Documentation
-├── modules/      # Application modules
-├── scripts/      # Build automation
-├── database/     # Database resources
-├── resources/    # Shared resources
-├── www/          # Web application structure
-├── build/        # Build output
-└── logs/         # Runtime logs
-```
+- Apache 2.4
+- Composer
+- Docker
+- Docker Compose
 
 ## Versioning
 
 Current version:
 
-`ASU v0.1.0 Build 2026.07.14.003`
+`ASU v0.2.0-beta-runtime.2`
 
 ## License
 
