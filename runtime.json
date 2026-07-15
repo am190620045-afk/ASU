@@ -1,0 +1,12 @@
+{
+  "name": "ASU",
+  "version": "0.2.0-beta-runtime.1",
+  "stage": "beta-runtime",
+  "validation": "prepared",
+  "runtime": {
+    "kernel": true,
+    "modules": true,
+    "ci": true,
+    "status_endpoint": true
+  }
+}
