@@ -1,0 +1,29 @@
+name: ASU Runtime Validation
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - feature/v0.2.0-beta
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  runtime-test:
+    name: Runtime Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+
+      - name: Run ASU runtime validation
+        run: php tests/runtime/run.php
