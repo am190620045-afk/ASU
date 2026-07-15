@@ -1,5 +1,45 @@
 # ASU Changelog
 
+## v0.2.0-beta-runtime.2
+
+### Added
+
+- Runtime Kernel foundation
+- Module Lifecycle Hooks
+- Runtime Persistence layer
+- Runtime State Validation
+- Metrics Layer
+- Performance Layer
+- Observability Layer
+- Web Runtime Layer
+- HTML Runtime Dashboard
+- Health endpoint
+- Status endpoint
+- Metrics snapshot endpoint
+- Module registry endpoint
+- Docker production deployment foundation
+- Apache VirtualHost deployment
+- Composer production build
+- PHP OPcache optimization
+
+### Deployment
+
+- Production Dockerfile
+- Docker Compose runtime service
+- Container healthcheck
+- Deployment documentation
+
+### Endpoints
+
+- `/`
+- `/dashboard.php`
+- `/health.php`
+- `/metrics.php`
+- `/modules.php`
+- `/status.php`
+
+---
+
 ## v0.2.0-beta-runtime.1
 
 ### Added
@@ -21,10 +61,6 @@
 - Module validation
 - Beta validation runner
 - Release gate workflow
-
-### Next
-
-Prepare v0.2.0-beta-runtime.2 iteration.
 
 ## v0.2.0-alpha.1
 
