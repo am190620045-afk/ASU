@@ -14,10 +14,24 @@ final class Manager
         $module->register();
     }
 
+    public function loadManifest(string $directory): array
+    {
+        $loader = new Loader();
+        $manifest = $loader->load($directory);
+
+        if (($manifest['enabled'] ?? false) === true) {
+            $this->modules[$manifest['name']] = $manifest;
+        }
+
+        return $manifest;
+    }
+
     public function boot(): array
     {
         foreach ($this->modules as $module) {
-            $module->boot();
+            if ($module instanceof Contract) {
+                $module->boot();
+            }
         }
 
         return array_keys($this->modules);
@@ -26,7 +40,9 @@ final class Manager
     public function shutdown(): void
     {
         foreach ($this->modules as $module) {
-            $module->shutdown();
+            if ($module instanceof Contract) {
+                $module->shutdown();
+            }
         }
     }
 }
