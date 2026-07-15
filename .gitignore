@@ -1,0 +1,17 @@
+# Logs
+logs/*
+*.log
+
+# Build output
+build/*
+
+# Temporary files
+*.tmp
+*.temp
+
+# Local database dumps
+database/*.sql
+
+# OS files
+.DS_Store
+Thumbs.db
