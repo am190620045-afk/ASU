@@ -7,8 +7,9 @@ use ASU\Core\Services\ServiceContainer;
 use ASU\Core\Services\DatabaseService;
 use ASU\Core\Services\SecurityService;
 use ASU\Database\Connection\Database;
-use ASU\Modules\Core\ModuleManager;
+use ASU\Core\Modules\ModuleManager;
 use ASU\Security\Auth\Authentication;
+use ASU\Admin\AdminModule;
 use ASU\Admin\Dashboard\DashboardController;
 
 class Application
@@ -36,6 +37,7 @@ class Application
         $this->container->register('modules', $this->modules);
         $this->container->register('dashboard', new DashboardController($security));
 
+        $this->modules->registerModule(new AdminModule());
         $this->modules->boot();
     }
 
