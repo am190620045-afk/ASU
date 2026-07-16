@@ -14,7 +14,10 @@ $Include = @(
     "config.json",
     "install",
     "lib",
-    "templates"
+    "templates",
+    "migrations",
+    "deployment",
+    "checksums"
 )
 
 $temp = Join-Path $env:TEMP "ASU-OSP-Build"
@@ -37,5 +40,14 @@ if(Test-Path $Output){
 }
 
 Compress-Archive -Path "$temp\*" -DestinationPath $Output
+
+$hash = Get-FileHash $Output -Algorithm SHA256
+$checksumDir = Join-Path $Root "checksums"
+
+if (!(Test-Path $checksumDir)) {
+    New-Item $checksumDir -ItemType Directory | Out-Null
+}
+
+"$($hash.Hash)  $OutputName" | Out-File (Join-Path $checksumDir "SHA256SUMS.txt") -Encoding utf8
 
 Write-Host "Package created: $Output"
