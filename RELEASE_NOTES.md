@@ -44,6 +44,6 @@ and CI runtime smoke workflow.
 
 ## Release Stage
 
-Beta demo release candidate.
+Beta runtime release published.
 
-Final publication requires successful runtime execution and version tag creation.
+Runtime execution and version tag creation completed.
