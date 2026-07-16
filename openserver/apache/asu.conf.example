@@ -1,0 +1,15 @@
+# ASU Open Server Apache example
+
+<VirtualHost *:80>
+    ServerName asu.local
+
+    DocumentRoot "{OPEN_SERVER}/domains/asu/public"
+
+    <Directory "{OPEN_SERVER}/domains/asu/public">
+        AllowOverride All
+        Require all granted
+    </Directory>
+
+    ErrorLog logs/asu-error.log
+    CustomLog logs/asu-access.log combined
+</VirtualHost>
