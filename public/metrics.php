@@ -9,6 +9,15 @@ use ASU\Runtime\MetricsReport;
 
 header('Content-Type: application/json');
 
-$report = new MetricsReport(new Metrics());
+try {
+    $report = new MetricsReport(new Metrics());
 
-echo json_encode($report->generate(), JSON_PRETTY_PRINT);
+    echo json_encode($report->generate(), JSON_PRETTY_PRINT);
+} catch (\Throwable $exception) {
+    http_response_code(500);
+
+    echo json_encode([
+        'status' => 'error',
+        'code' => 'RUNTIME_FAILURE',
+    ], JSON_PRETTY_PRINT);
+}

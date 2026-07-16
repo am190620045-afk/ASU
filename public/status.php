@@ -10,9 +10,18 @@ use ASU\Runtime\Status;
 
 header('Content-Type: application/json');
 
-$state = new State();
-$status = new Status($state);
+try {
+    $state = new State();
+    $status = new Status($state);
 
-$modules = new ModuleStatus(new ASU\Module\Registry());
+    $modules = new ModuleStatus(new ASU\Module\Registry());
 
-echo json_encode($status->report($modules), JSON_PRETTY_PRINT);
+    echo json_encode($status->report($modules), JSON_PRETTY_PRINT);
+} catch (\Throwable $exception) {
+    http_response_code(500);
+
+    echo json_encode([
+        'status' => 'error',
+        'code' => 'RUNTIME_FAILURE',
+    ], JSON_PRETTY_PRINT);
+}

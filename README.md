@@ -48,17 +48,34 @@ See:
 DEPLOYMENT.md
 ```
 
-Quick start:
+## Production Preview
+
+Prepare environment:
+
+```bash
+cp .env.example .env
+```
+
+Build and start runtime:
 
 ```bash
 docker compose build
 docker compose up -d
 ```
 
-Runtime:
+Verify runtime health:
+
+```bash
+curl http://localhost:8080/health.php
+```
+
+Internal application directories should not be exposed publicly:
 
 ```
-http://localhost:8080/
+/src
+/config
+/vendor
+/storage
 ```
 
 ## Technology Stack

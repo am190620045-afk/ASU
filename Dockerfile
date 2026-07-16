@@ -3,7 +3,7 @@ FROM php:8.4-apache
 WORKDIR /var/www/html
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends git unzip \
+    && apt-get install -y --no-install-recommends git unzip curl \
     && docker-php-ext-install opcache \
     && a2enmod rewrite headers expires \
     && rm -rf /var/lib/apt/lists/*
