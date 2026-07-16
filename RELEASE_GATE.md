@@ -2,7 +2,7 @@
 
 ## Status
 
-Candidate: `v0.2.0-beta-runtime.2`
+Release: `v0.2.0-beta-runtime.2`
 
 ## Gate Checklist
 
@@ -35,9 +35,9 @@ Candidate: `v0.2.0-beta-runtime.2`
 
 - [x] Smoke test script
 - [x] CI smoke workflow
-- [ ] Final runtime execution
-- [ ] Git tag creation
+- [x] Final runtime execution
+- [x] Git tag creation
 
 ## Release Decision
 
-Ready for final demo release after runtime execution and tag creation.
+Release published. Runtime and deployment validation completed.
