@@ -1,0 +1,6 @@
+[project]
+name=asu.local
+web_root={base_dir}\public
+php_engine=PHP-8.5
+http_engine=Apache
+mysql_engine=MySQL-8.4
