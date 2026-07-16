@@ -38,5 +38,8 @@ Write-Host "8. Verify release artifacts"
 Write-Host "9. Generate release report"
 & "$Root\tools\Generate-ASU-Release-Report.ps1"
 
+Write-Host "10. Check release readiness"
+& "$Root\tools\Set-ASU-Release-Ready.ps1"
+
 Write-Host ""
 Write-Host "Release pipeline completed"
