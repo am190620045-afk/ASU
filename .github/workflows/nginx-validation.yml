@@ -1,0 +1,23 @@
+name: Nginx Validation
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'deploy/nginx/**'
+
+jobs:
+  nginx-test:
+    name: Validate Nginx Config
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Nginx syntax test
+        run: |
+          docker run --rm \
+            -v "$PWD/deploy/nginx:/etc/nginx/conf.d:ro" \
+            nginx:stable nginx -t
