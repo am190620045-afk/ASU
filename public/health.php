@@ -21,6 +21,6 @@ try {
 
     echo json_encode([
         'status' => 'error',
-        'message' => $exception->getMessage(),
+        'code' => 'RUNTIME_FAILURE',
     ], JSON_PRETTY_PRINT);
 }
