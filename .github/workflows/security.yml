@@ -1,0 +1,27 @@
+name: Security Checks
+
+on:
+  push:
+    branches:
+      - main
+      - ci/**
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  security:
+    name: Dependency and Security Checks
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: PHP security audit
+        run: |
+          if [ -f composer.lock ]; then
+            composer audit
+          else
+            echo 'composer.lock not found, skipping composer audit'
+          fi
