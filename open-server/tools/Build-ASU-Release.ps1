@@ -23,5 +23,8 @@ Write-Host "3. Validate package"
 Write-Host "4. Verify release artifacts"
 & "$Root\tools\Verify-ASU-Release.ps1"
 
+Write-Host "5. Generate release report"
+& "$Root\tools\Generate-ASU-Release-Report.ps1"
+
 Write-Host ""
 Write-Host "Release pipeline completed"
