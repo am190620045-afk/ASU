@@ -36,7 +36,15 @@ New-Item -ItemType Directory $Stage | Out-Null
 $PackageRoot = Join-Path $Stage $ReleaseName
 New-Item -ItemType Directory $PackageRoot | Out-Null
 
-Copy-Item "$Root\*" $PackageRoot -Recurse -Force
+$exclude = @(
+    "release",
+    "_build",
+    ".git"
+)
+
+Get-ChildItem $Root | Where-Object {
+    $exclude -notcontains $_.Name
+} | Copy-Item -Destination $PackageRoot -Recurse -Force
 
 $manifest = @{
     name = $ReleaseName
