@@ -1,0 +1,24 @@
+{
+  "application": {
+    "name": "ASU",
+    "version_file": "VERSION",
+    "deployment_type": "open-server"
+  },
+  "open_server": {
+    "base_dir": "C:\\OSPanel\\home\\asu.local",
+    "web_root": "{base_dir}\\public",
+    "osp_config": "{base_dir}\\.osp\\project.ini"
+  },
+  "environment": {
+    "php_min_version": "8.3",
+    "php_target_version": "8.5",
+    "mysql_version": "8.4",
+    "server": "Apache"
+  },
+  "deployment": {
+    "backup_enabled": true,
+    "backup_directory": "backups",
+    "report_directory": "reports",
+    "log_directory": "logs"
+  }
+}
