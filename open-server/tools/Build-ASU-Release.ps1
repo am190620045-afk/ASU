@@ -23,16 +23,19 @@ Write-Host "3. Generate manifest"
 Write-Host "4. Build package"
 & "$Root\tools\Build-ASU-OSP-Package.ps1"
 
-Write-Host "5. Generate SHA256"
+Write-Host "5. Validate ZIP content"
+& "$Root\tests\Test-ASU-ZIP-Content.ps1"
+
+Write-Host "6. Generate SHA256"
 & "$Root\tools\Generate-ASU-SHA256.ps1"
 
-Write-Host "6. Validate package"
+Write-Host "7. Validate package"
 & "$Root\tests\Test-ASU-Package-Integrity.ps1"
 
-Write-Host "7. Verify release artifacts"
+Write-Host "8. Verify release artifacts"
 & "$Root\tools\Verify-ASU-Release.ps1"
 
-Write-Host "8. Generate release report"
+Write-Host "9. Generate release report"
 & "$Root\tools\Generate-ASU-Release-Report.ps1"
 
 Write-Host ""
