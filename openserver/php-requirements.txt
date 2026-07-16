@@ -1,0 +1,15 @@
+ASU PHP requirements
+
+Minimum supported: PHP 8.3
+Recommended runtime: PHP 8.5
+
+Required extensions:
+- pdo
+- pdo_mysql
+- mbstring
+- openssl
+- curl
+- intl
+- json
+- fileinfo
+- zip
