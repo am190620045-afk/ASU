@@ -10,11 +10,13 @@ header('Content-Type: application/json');
 
 try {
     $kernel = new Kernel();
-    $kernel->boot();
+    $result = $kernel->boot();
 
     echo json_encode([
-        'status' => 'ok',
-        'runtime' => '0.2.0-beta-runtime.2',
+        'status' => ($result['kernel'] ?? null) === 'ready' ? 'ok' : 'failed',
+        'runtime' => $result['metadata'] ?? null,
+        'modules' => $result['modules'] ?? [],
+        'timestamp' => date(DATE_ATOM),
     ], JSON_PRETTY_PRINT);
 } catch (\Throwable $exception) {
     http_response_code(500);
