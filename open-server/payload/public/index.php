@@ -2,6 +2,8 @@
 // ASU Open Server Deployment Kit preview payload
 
 header('Content-Type: text/html; charset=utf-8');
+
+$phpVersion = PHP_VERSION;
 ?>
 <!doctype html>
 <html lang="ru">
@@ -30,7 +32,7 @@ body {
     background:white;
     border-radius:12px;
     padding:28px;
-    box-shadow:0 8px 20px rgba(0,0,0,.08);
+    box-shadow:0 8px 20px rgba(0,0,100,.08);
     margin-bottom:20px;
 }
 .grid {
@@ -70,7 +72,7 @@ body {
 <div class="grid">
 <div class="item"><b>Версия</b><br>0.2.0 Preview</div>
 <div class="item"><b>Платформа</b><br>Open Server 6.5.1</div>
-<div class="item"><b>PHP</b><br>8.3</div>
+<div class="item"><b>PHP</b><br><?= htmlspecialchars($phpVersion, ENT_QUOTES, 'UTF-8') ?></div>
 <div class="item"><b>База данных</b><br>MySQL 8.4</div>
 </div>
 
