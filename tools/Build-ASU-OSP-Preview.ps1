@@ -20,6 +20,8 @@ $required = @(
     "install/Install-ASU-OSP.ps1",
     "lib/ASU-Common.ps1",
     "config.json",
+    "payload/.osp/project.ini",
+    "payload/README-OSP.txt",
     "payload/VERSION",
     "payload/public/index.php"
 )
