@@ -44,7 +44,7 @@ else {
 $payload = Join-Path $Root "payload"
 
 if (Test-Path $payload) {
-    Copy-Item "$payload\*" $project -Recurse -Force
+    Get-ChildItem $payload -Force | Copy-Item -Destination $project -Recurse -Force
 }
 
 Set-Content (Join-Path $project "VERSION") $Version
