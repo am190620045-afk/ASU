@@ -8,7 +8,7 @@
   },
   "requirements": {
     "open_server": "6.5.1",
-    "php": "8.3",
+    "php": "8.5",
     "mysql": "8.4"
   }
 }
