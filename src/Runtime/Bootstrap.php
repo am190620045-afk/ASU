@@ -10,7 +10,7 @@ final class Bootstrap
     {
         return [
             'runtime' => 'ASU',
-            'version' => '0.2.0-beta-runtime.1',
+            'version' => '0.3.4',
             'status' => 'initialized',
         ];
     }
