@@ -1,7 +1,7 @@
 # ==========================================
 # ASU Open Server Deployment Kit
 # Install-ASU-OSP.ps1
-# Version 0.6.1-preview
+# Version 0.6.2-preview
 # ==========================================
 
 param(
@@ -70,10 +70,17 @@ else {
 if (-not (Test-Path $deploy)) {
     New-Item -ItemType Directory -Path $deploy -Force | Out-Null
 }
+else {
+    Get-ChildItem $deploy -Force | Remove-Item -Recurse -Force
+}
 
-Get-ChildItem $project -Force | Where-Object {
-    $_.Name -notin @("backups", ".asu", "reports")
-} | Copy-Item -Destination $deploy -Recurse -Force
+$runtimeItems = @("VERSION","VERSION.json","config","public")
+foreach ($item in $runtimeItems) {
+    $source = Join-Path $project $item
+    if (Test-Path $source) {
+        Copy-Item -Path $source -Destination $deploy -Recurse -Force
+    }
+}
 
 Set-Content (Join-Path $deploy "VERSION") $Version
 
