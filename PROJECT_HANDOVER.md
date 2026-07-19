@@ -30,10 +30,11 @@ OSP deployment reached a working web state:
 - Implemented clean runtime file filtering.
 - Restored required Open Server metadata deployment.
 - Updated project state documentation.
+- Hardened VERIFY health check against local DNS resolution issues.
 
 ## Current correction
 
-Installer now deploys only runtime files and required OSP metadata:
+Installer deploys only runtime files and required OSP metadata:
 
 - .osp/
 - VERSION
@@ -41,7 +42,7 @@ Installer now deploys only runtime files and required OSP metadata:
 - config/
 - public/
 
-Development files must remain outside the OSP runtime.
+VERIFY now checks health through localhost routing with Host header instead of depending on DNS lookup of asu.local.
 
 ## Validation steps
 
@@ -50,12 +51,6 @@ Run:
 ```
 git pull origin main
 cd C:\Project_ASU\ASU\open-server\install
-.\Install-ASU-OSP.ps1
-```
-
-Then:
-
-```
 .\Install-ASU-OSP.ps1 -Mode VERIFY
 ```
 
