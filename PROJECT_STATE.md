@@ -11,16 +11,17 @@ Date: 2026-07-19
 - VERSION and runtime configuration detection fixed.
 - Backup creation fixed to exclude generated directories.
 - Open Server deployment target implemented.
+- Clean runtime deployment filtering implemented.
 - asu.local and health.php confirmed working in Open Server.
 
 ## Current task
 
-Finalize OSP runtime deployment filtering.
+Finalize OSP runtime deployment with required Open Server metadata.
 
 ## Current issue
 
-Installer was copying the whole repository into C:\\OSPanel\\home\\asu.local.
-The installer is being changed to deploy only runtime files.
+Runtime filtering removed repository files correctly, but also removed required OSP metadata.
+The installer now restores only .osp metadata together with runtime files.
 
 ## Next step
 
