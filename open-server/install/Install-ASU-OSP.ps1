@@ -1,12 +1,12 @@
 # ==========================================
 # ASU Open Server Deployment Kit
 # Install-ASU-OSP.ps1
-# Version 0.2.0-preview
+# Version 0.3.0-preview
 # ==========================================
 
 param(
     [string]$Config = "..\config.json",
-    [string]$Version = "0.2.0"
+    [string]$Version = "0.3.0"
 )
 
 $ErrorActionPreference = "Stop"
@@ -14,9 +14,33 @@ $ErrorActionPreference = "Stop"
 $Root = Split-Path -Parent $PSScriptRoot
 . "$Root\lib\ASU-Common.ps1"
 
+function Test-ASU-Payload {
+    param([string]$Path)
+
+    $required = @(
+        "public\index.php",
+        "public\health.php"
+    )
+
+    foreach ($item in $required) {
+        if (-not (Test-Path (Join-Path $Path $item))) {
+            throw "Required deployment file missing: $item"
+        }
+    }
+
+    return $true
+}
+
 $configPath = Join-Path $Root $Config
 $configData = Get-Content $configPath -Raw | ConvertFrom-Json
 $project = $configData.paths.project
+$payload = Join-Path $Root "payload"
+
+if (-not (Test-Path $payload)) {
+    throw "Deployment payload not found"
+}
+
+Test-ASU-Payload $payload
 
 Initialize-ASU-Runtime $project
 
@@ -41,13 +65,18 @@ else {
     Write-ASU-State $project "INSTALL_RUNNING"
 }
 
-$payload = Join-Path $Root "payload"
-
-if (Test-Path $payload) {
-    Get-ChildItem $payload -Force | Copy-Item -Destination $project -Recurse -Force
-}
+Get-ChildItem $payload -Force | Copy-Item -Destination $project -Recurse -Force
 
 Set-Content (Join-Path $project "VERSION") $Version
+
+$report = @{
+    version = $Version
+    status = "completed"
+    deployment = "Open Server Panel 6.5.1"
+    source = "open-server/payload"
+}
+
+$report | ConvertTo-Json | Set-Content (Join-Path $project "deployment-report.json")
 
 Write-ASU-State $project "COMPLETED"
 Write-ASU-Log "Deployment completed"
