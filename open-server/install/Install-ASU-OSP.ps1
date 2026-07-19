@@ -1,12 +1,12 @@
 # ==========================================
 # ASU Open Server Deployment Kit
 # Install-ASU-OSP.ps1
-# Version 0.4.0-preview
+# Version 0.5.0-preview
 # ==========================================
 
 param(
     [string]$Config = "..\config.json",
-    [string]$Version = "0.4.0",
+    [string]$Version = "0.5.0",
     [ValidateSet("INSTALL", "VERIFY")]
     [string]$Mode = "INSTALL"
 )
@@ -20,6 +20,7 @@ function Test-ASU-Payload {
     param([string]$Path)
 
     $required = @(
+        ".osp\project.ini",
         "public\index.php",
         "public\health.php"
     )
@@ -29,8 +30,24 @@ function Test-ASU-Payload {
             throw "Required deployment file missing: $item"
         }
     }
+}
 
-    return $true
+function Test-ASU-Requirements {
+    param($ConfigData)
+
+    $requirements = $ConfigData.requirements
+
+    if ($requirements.open_server -ne "6.5.1") {
+        throw "Unsupported Open Server version requirement"
+    }
+
+    if ($requirements.php -ne "8.5") {
+        throw "Unsupported PHP version requirement"
+    }
+
+    if ($requirements.mysql -ne "8.4") {
+        throw "Unsupported MySQL version requirement"
+    }
 }
 
 function Test-ASU-Deployment {
@@ -47,14 +64,14 @@ function Test-ASU-Deployment {
             throw "Deployment verification failed. Missing: $item"
         }
     }
-
-    return $true
 }
 
 $configPath = Join-Path $Root $Config
 $configData = Get-Content $configPath -Raw | ConvertFrom-Json
 $project = $configData.paths.project
 $payload = Join-Path $Root "payload"
+
+Test-ASU-Requirements $configData
 
 if ($Mode -eq "VERIFY") {
     Test-ASU-Deployment $project
@@ -101,6 +118,11 @@ $report = @{
     status = "completed"
     deployment = "Open Server Panel 6.5.1"
     source = "open-server/payload"
+    validated = @(
+        "osp/project.ini",
+        "public/index.php",
+        "public/health.php"
+    )
 }
 
 $report | ConvertTo-Json | Set-Content (Join-Path $project "deployment-report.json")
