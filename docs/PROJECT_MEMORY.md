@@ -123,6 +123,8 @@ Verified implementation direction:
 - deployment starts from `open-server/payload`;
 - payload structure is validated before copying;
 - required web entry points are checked;
+- OSP project configuration is validated;
+- deployment requirements are validated from configuration;
 - deployment execution remains controlled through Install-ASU-OSP.ps1;
 - deployment reporting is generated as part of runtime deployment preparation;
 - VERIFY mode validates installed runtime state after deployment.
