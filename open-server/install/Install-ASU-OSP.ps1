@@ -55,7 +55,12 @@ Initialize-ASU-Runtime $project
 
 if (Test-Path (Join-Path $project "VERSION")) {
     Write-Host "Existing ASU installation detected"
-    New-ASU-Backup $project
+    try {
+        New-ASU-Backup $project
+    }
+    catch {
+        throw "Backup creation failed. Close any application using files in the backups directory and retry."
+    }
     Write-ASU-State $project "UPGRADE_RUNNING"
 }
 else {
