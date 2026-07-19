@@ -116,6 +116,20 @@ The deployment process must separate:
 
 ---
 
+## Open Server Deployment Improvement
+
+Verified implementation direction:
+
+- deployment starts from `open-server/payload`;
+- payload structure is validated before copying;
+- required web entry points are checked;
+- deployment execution remains controlled through Install-ASU-OSP.ps1;
+- deployment reporting is generated as part of runtime deployment preparation.
+
+The repository source tree remains separated from Open Server runtime files.
+
+---
+
 ## Current Development Direction
 
 Next planned stage:
@@ -124,4 +138,4 @@ ASU 0.3.6 — Kernel Configuration Integration
 
 Parallel task:
 
-Prepare clean reproducible Open Server Panel 6.5.1 deployment.
+Complete clean reproducible Open Server Panel 6.5.1 deployment verification.
