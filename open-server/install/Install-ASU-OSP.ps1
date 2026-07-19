@@ -1,7 +1,7 @@
 # ==========================================
 # ASU Open Server Deployment Kit
 # Install-ASU-OSP.ps1
-# Version 0.6.4-preview
+# Version 0.6.5-preview
 # ==========================================
 
 param(
@@ -18,47 +18,39 @@ $Root = Split-Path -Parent $PSScriptRoot
 function Test-ASU-ProjectStructure {
     param([string]$Path)
     foreach ($item in @("VERSION","config\runtime.php","config\app.php","public\index.php","public\health.php")) {
-        if (-not (Test-Path (Join-Path $Path $item))) {
-            throw "ASU runtime file missing: $item"
-        }
+        if (-not (Test-Path (Join-Path $Path $item))) { throw "ASU runtime file missing: $item" }
     }
 }
 
 function Test-ASU-Payload {
     param([string]$Path)
     foreach ($item in @(".osp\project.ini","public\index.php","public\health.php")) {
-        if (-not (Test-Path (Join-Path $Path $item))) {
-            throw "Required deployment file missing: $item"
+        if (-not (Test-Path (Join-Path $Path $item))) { throw "Required deployment file missing: $item" }
+    }
+}
+
+function Get-ASU-DeployPath { return "C:\OSPanel\home\asu.local" }
+
+function Test-ASU-HealthEndpoint {
+    try {
+        return Invoke-WebRequest "http://asu.local/health.php" -UseBasicParsing
+    }
+    catch {
+        try {
+            return Invoke-WebRequest "http://127.0.0.1/health.php" -Headers @{ Host = "asu.local" } -UseBasicParsing
+        }
+        catch {
+            throw "Health endpoint check failed: $($_.Exception.Message)"
         }
     }
 }
 
-function Get-ASU-DeployPath {
-    return "C:\OSPanel\home\asu.local"
-}
-
 function Test-ASU-Deployment {
     param([string]$DeployPath)
-
     Test-ASU-ProjectStructure $DeployPath
-
-    if (-not (Test-Path (Join-Path $DeployPath ".osp\project.ini"))) {
-        throw "OSP metadata missing: .osp\project.ini"
-    }
-
-    try {
-        $response = Invoke-WebRequest `
-            "http://127.0.0.1/health.php" `
-            -Headers @{ Host = "asu.local" } `
-            -UseBasicParsing
-    }
-    catch {
-        throw "Health endpoint check failed: $($_.Exception.Message)"
-    }
-
-    if ($response.StatusCode -ne 200) {
-        throw "Health endpoint returned invalid status"
-    }
+    if (-not (Test-Path (Join-Path $DeployPath ".osp\project.ini"))) { throw "OSP metadata missing: .osp\project.ini" }
+    $response = Test-ASU-HealthEndpoint
+    if ($response.StatusCode -ne 200) { throw "Health endpoint returned invalid status" }
 }
 
 $project = (Resolve-Path (Join-Path $Root "..\")).Path
@@ -80,27 +72,17 @@ if (Test-Path (Join-Path $project "VERSION")) {
     New-ASU-Backup $project
     Write-ASU-State $project "UPGRADE_RUNNING"
 }
-else {
-    Write-ASU-State $project "INSTALL_RUNNING"
-}
+else { Write-ASU-State $project "INSTALL_RUNNING" }
 
-if (-not (Test-Path $deploy)) {
-    New-Item -ItemType Directory -Path $deploy -Force | Out-Null
-}
-else {
-    Get-ChildItem $deploy -Force | Remove-Item -Recurse -Force
-}
+if (-not (Test-Path $deploy)) { New-Item -ItemType Directory -Path $deploy -Force | Out-Null }
+else { Get-ChildItem $deploy -Force | Remove-Item -Recurse -Force }
 
-$runtimeItems = @(".osp","VERSION","VERSION.json","config","public")
-foreach ($item in $runtimeItems) {
+foreach ($item in @(".osp","VERSION","VERSION.json","config","public")) {
     $source = Join-Path $project $item
-    if (Test-Path $source) {
-        Copy-Item -Path $source -Destination $deploy -Recurse -Force
-    }
+    if (Test-Path $source) { Copy-Item -Path $source -Destination $deploy -Recurse -Force }
 }
 
 Set-Content (Join-Path $deploy "VERSION") $Version
-
 Test-ASU-ProjectStructure $deploy
 Write-ASU-State $project "COMPLETED"
 Write-ASU-Log "Deployment completed"
