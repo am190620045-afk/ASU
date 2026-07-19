@@ -1,12 +1,12 @@
 # ==========================================
 # ASU Open Server Deployment Kit
 # Install-ASU-OSP.ps1
-# Version 0.5.0-preview
+# Version 0.6.0-preview
 # ==========================================
 
 param(
     [string]$Config = "..\config.json",
-    [string]$Version = "0.5.0",
+    [string]$Version = "0.6.0",
     [ValidateSet("INSTALL", "VERIFY")]
     [string]$Mode = "INSTALL"
 )
@@ -63,6 +63,16 @@ function Test-ASU-Deployment {
         if (-not (Test-Path (Join-Path $ProjectPath $item))) {
             throw "Deployment verification failed. Missing: $item"
         }
+    }
+
+    try {
+        $response = Invoke-WebRequest "http://asu.local/health.php" -UseBasicParsing
+        if ($response.StatusCode -ne 200) {
+            throw "Health endpoint returned invalid status"
+        }
+    }
+    catch {
+        throw "Runtime health verification failed"
     }
 }
 
@@ -121,7 +131,8 @@ $report = @{
     validated = @(
         "osp/project.ini",
         "public/index.php",
-        "public/health.php"
+        "public/health.php",
+        "runtime-health"
     )
 }
 
