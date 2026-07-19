@@ -12,16 +12,17 @@ Date: 2026-07-19
 - Backup creation fixed to exclude generated directories.
 - Open Server deployment target implemented.
 - Clean runtime deployment filtering implemented.
+- Required .osp metadata restored.
 - asu.local and health.php confirmed working in Open Server.
 
 ## Current task
 
-Finalize OSP runtime deployment with required Open Server metadata.
+Finalize OSP installer verification hardening.
 
 ## Current issue
 
-Runtime filtering removed repository files correctly, but also removed required OSP metadata.
-The installer now restores only .osp metadata together with runtime files.
+Browser and Open Server resolved asu.local correctly, but PowerShell Invoke-WebRequest depended on local DNS resolution.
+The VERIFY health check is changed to use localhost with Host header routing.
 
 ## Next step
 
