@@ -38,6 +38,8 @@ Composer 2.10.2
 
 [x] Runtime health verification in deployment VERIFY stage
 
+[x] OSP Deployment Improvement completed
+
 ## Verified Runtime Status
 
 The following endpoints were successfully verified:
@@ -46,42 +48,41 @@ The following endpoints were successfully verified:
 
 `http://asu.local/health.php`
 
+## Current Development Stage
+
+ASU 0.3.6 — Kernel Configuration Integration
+
 ## In Progress
 
-[ ] ASU 0.3.6 Kernel Configuration Integration
+[ ] Kernel bootstrap analysis
 
-[ ] Clean Open Server Panel 6.5.1 deployment completion
+[ ] Kernel configuration loading flow
 
-[ ] Final Open Server deployment lifecycle verification
+[ ] Service initialization architecture
 
 ## Deployment Strategy
 
-Current target:
-
-Create a clean reproducible deployment from:
+ASU deployment uses a clean reproducible deployment from:
 
 `open-server/payload`
 
-and required ASU runtime components.
-
-The deployment process must preserve Open Server project configuration and separate source repository files from runtime files.
+The deployment process preserves Open Server project configuration and separates source repository files from runtime files.
 
 ## Deployment Improvement Status
 
-Implemented:
+Completed:
 
-- payload existence validation;
-- required web entry point validation;
+- payload validation;
 - OSP project configuration validation;
 - environment requirements validation;
-- deployment report preparation;
 - controlled deployment workflow;
+- deployment reporting;
 - VERIFY deployment mode;
 - runtime health verification.
 
 ## Next Actions
 
-1. Execute final VERIFY mode in Open Server Panel 6.5.1.
-2. Confirm clean deployment lifecycle.
-3. Finalize deployment approach in PROJECT_MEMORY.md.
-4. Continue Kernel integration work after stable runtime verification.
+1. Begin ASU 0.3.6 Kernel Configuration Integration.
+2. Analyze current bootstrap initialization flow.
+3. Introduce kernel configuration layer without breaking Runtime Health.
+4. Update PROJECT_MEMORY.md with Kernel decisions.
