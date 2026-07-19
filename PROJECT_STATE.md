@@ -4,41 +4,68 @@
 
 Date: 2026-07-19
 
+## Repository
+
+GitHub:
+am190620045-afk/ASU
+
+Branch:
+main
+
 ## Completed
 
-- GitHub is the single source of project changes.
-- OSP installer path resolution fixed.
-- VERSION and runtime configuration detection fixed.
-- Backup creation fixed.
-- Open Server deployment target implemented.
-- Clean runtime deployment filtering implemented.
-- Required .osp metadata restored.
-- asu.local and health.php confirmed working in Open Server.
+- GitHub remains the single source of project changes.
+- OSP Deployment Improvement completed.
+- asu.local and health.php verified.
 - Install-ASU-OSP.ps1 -Mode VERIFY completed successfully.
+- Kernel configuration layer added.
 
-## Completed milestone
+## ASU 0.3.6 Kernel Configuration Integration
 
-OSP Deployment Improvement completed.
+Completed:
 
-## Final deployment state
+- config/kernel.php added.
+- src/Config/KernelConfig.php added.
+- src/Runtime/Kernel.php integrated with KernelConfig.
 
-Runtime deployment contains only:
+## Current investigation
 
-- .osp/
+Need to verify source of local modifications:
+
+Modified:
 - VERSION
-- VERSION.json
-- config/
-- public/
+- public/index.php
+- public/health.php
 
-Repository development files are not copied into Open Server runtime.
+Untracked:
+- .asu/
+- .osp/
+- README-OSP.txt
+- backups/
+- composer.lock
+- open-server/reports/
+- vendor/
 
-## Next development phase
+Do not clean or commit until GitHub source comparison is completed.
 
-ASU 0.3.6 Kernel Configuration Integration.
+## Next phase
 
-## Continuation requirements
+Verify:
 
-Do not restart previous OSP investigation.
-Continue from the validated deployment state.
+open-server/
+open-server/payload/
 
-If user actions are required, provide detailed commands, location, expected output and required response.
+against:
+
+public/
+
+Then complete repository cleanup and documentation update.
+
+## User action policy
+
+When user actions are required provide:
+
+1. exact command;
+2. location;
+3. expected output;
+4. required response.
