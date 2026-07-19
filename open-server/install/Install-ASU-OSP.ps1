@@ -1,7 +1,7 @@
 # ==========================================
 # ASU Open Server Deployment Kit
 # Install-ASU-OSP.ps1
-# Version 0.6.0-preview
+# Version 0.6.1-preview
 # ==========================================
 
 param(
@@ -33,18 +33,23 @@ function Test-ASU-Payload {
     }
 }
 
+function Get-ASU-DeployPath {
+    return "C:\OSPanel\home\asu.local"
+}
+
 function Test-ASU-Deployment {
-    param([string]$ProjectPath)
-    Test-ASU-ProjectStructure $ProjectPath
+    param([string]$DeployPath)
+    Test-ASU-ProjectStructure $DeployPath
     $response = Invoke-WebRequest "http://asu.local/health.php" -UseBasicParsing
     if ($response.StatusCode -ne 200) { throw "Health endpoint returned invalid status" }
 }
 
 $project = (Resolve-Path (Join-Path $Root "..\")).Path
 $payload = Join-Path $Root "payload"
+$deploy = Get-ASU-DeployPath
 
 if ($Mode -eq "VERIFY") {
-    Test-ASU-Deployment $project
+    Test-ASU-Deployment $deploy
     Write-ASU-Log "Deployment verification completed"
     Write-Host "Deployment verification completed"
     exit
@@ -55,22 +60,24 @@ Initialize-ASU-Runtime $project
 
 if (Test-Path (Join-Path $project "VERSION")) {
     Write-Host "Existing ASU installation detected"
-    try {
-        New-ASU-Backup $project
-    }
-    catch {
-        throw "Backup creation failed. Close any application using files in the backups directory and retry."
-    }
+    New-ASU-Backup $project
     Write-ASU-State $project "UPGRADE_RUNNING"
 }
 else {
     Write-ASU-State $project "INSTALL_RUNNING"
 }
 
-Get-ChildItem $payload -Force | Copy-Item -Destination $project -Recurse -Force
-Set-Content (Join-Path $project "VERSION") $Version
+if (-not (Test-Path $deploy)) {
+    New-Item -ItemType Directory -Path $deploy -Force | Out-Null
+}
 
-Test-ASU-ProjectStructure $project
+Get-ChildItem $project -Force | Where-Object {
+    $_.Name -notin @("backups", ".asu", "reports")
+} | Copy-Item -Destination $deploy -Recurse -Force
+
+Set-Content (Join-Path $deploy "VERSION") $Version
+
+Test-ASU-ProjectStructure $deploy
 Write-ASU-State $project "COMPLETED"
 Write-ASU-Log "Deployment completed"
 Write-Host "Installation completed"
