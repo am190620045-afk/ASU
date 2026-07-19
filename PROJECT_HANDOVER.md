@@ -12,59 +12,81 @@ Branch:
 
 `main`
 
+## Working process
+
+GitHub is the only source of project changes.
+
+Local copy:
+
+`C:\Project_ASU\ASU`
+
+is used only for:
+
+- git pull;
+- build;
+- testing;
+- Open Server verification.
+
 ## Current status
 
-OSP deployment reached a working web state:
+OSP deployment is completed and validated.
+
+Confirmed:
 
 - http://asu.local/ opens.
 - http://asu.local/health.php responds.
+- `Install-ASU-OSP.ps1 -Mode VERIFY` returns success.
 
 ## Completed tasks
 
-- GitHub-only change workflow preserved.
 - Removed obsolete config.json dependency.
-- Migrated installer to runtime configuration model.
+- Migrated installer to runtime configuration architecture.
 - Fixed VERSION and project root detection.
-- Fixed backup archive self-inclusion.
-- Added Open Server runtime deployment target.
+- Fixed backup archive creation.
+- Implemented Open Server runtime deployment.
 - Implemented clean runtime file filtering.
-- Restored required Open Server metadata deployment.
+- Restored required Open Server `.osp` metadata.
+- Hardened VERIFY health endpoint checking.
 - Updated project state documentation.
-- Hardened VERIFY health check against local DNS resolution issues.
 
-## Current correction
+## Runtime deployment structure
 
-Installer deploys only runtime files and required OSP metadata:
-
-- .osp/
-- VERSION
-- VERSION.json
-- config/
-- public/
-
-VERIFY now checks health through localhost routing with Host header instead of depending on DNS lookup of asu.local.
-
-## Validation steps
-
-Run:
+Open Server runtime:
 
 ```
-git pull origin main
-cd C:\Project_ASU\ASU\open-server\install
-.\Install-ASU-OSP.ps1 -Mode VERIFY
+C:\OSPanel\home\asu.local
+
+.osp/
+config/
+public/
+VERSION
+VERSION.json
 ```
 
-Verify:
+## Completed milestone
 
-- http://asu.local/
-- http://asu.local/health.php
+OSP Deployment Improvement.
 
 ## Next development phase
 
-After successful OSP validation:
-
 ASU 0.3.6 Kernel Configuration Integration.
 
-## Continuation rule
+## New chat continuation rule
 
-Do not restart project analysis. GitHub is the source of changes. Local copy is used only for pull, build, testing and Open Server verification.
+Do not restart project analysis.
+
+Continue from the completed OSP deployment state.
+
+Before changes:
+
+```
+cd C:\Project_ASU\ASU
+git pull origin main
+```
+
+When user actions are required, provide:
+
+1. command;
+2. working directory;
+3. expected result;
+4. required output to send back.
