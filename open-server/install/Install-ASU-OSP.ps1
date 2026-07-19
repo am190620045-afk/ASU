@@ -1,7 +1,7 @@
 # ==========================================
 # ASU Open Server Deployment Kit
 # Install-ASU-OSP.ps1
-# Version 0.6.2-preview
+# Version 0.6.3-preview
 # ==========================================
 
 param(
@@ -40,6 +40,9 @@ function Get-ASU-DeployPath {
 function Test-ASU-Deployment {
     param([string]$DeployPath)
     Test-ASU-ProjectStructure $DeployPath
+    if (-not (Test-Path (Join-Path $DeployPath ".osp\project.ini"))) {
+        throw "OSP metadata missing: .osp\project.ini"
+    }
     $response = Invoke-WebRequest "http://asu.local/health.php" -UseBasicParsing
     if ($response.StatusCode -ne 200) { throw "Health endpoint returned invalid status" }
 }
@@ -74,7 +77,7 @@ else {
     Get-ChildItem $deploy -Force | Remove-Item -Recurse -Force
 }
 
-$runtimeItems = @("VERSION","VERSION.json","config","public")
+$runtimeItems = @(".osp","VERSION","VERSION.json","config","public")
 foreach ($item in $runtimeItems) {
     $source = Join-Path $project $item
     if (Test-Path $source) {
