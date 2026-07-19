@@ -11,7 +11,7 @@ function Get-ASU-Root {
 }
 
 function Get-ASU-Version {
-    $file = Join-Path $ASURoot "VERSION"
+    $file = Join-Path (Split-Path -Parent $ASURoot) "VERSION"
     if (!(Test-Path $file)) { throw "VERSION missing" }
     return (Get-Content $file).Trim()
 }
