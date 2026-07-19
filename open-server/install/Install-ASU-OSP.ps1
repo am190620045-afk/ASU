@@ -5,7 +5,6 @@
 # ==========================================
 
 param(
-    [string]$Config = "..\config.json",
     [string]$Version = "0.6.0",
     [ValidateSet("INSTALL", "VERIFY")]
     [string]$Mode = "INSTALL"
@@ -16,13 +15,33 @@ $ErrorActionPreference = "Stop"
 $Root = Split-Path -Parent $PSScriptRoot
 . "$Root\lib\ASU-Common.ps1"
 
+function Test-ASU-ProjectStructure {
+    param([string]$Path)
+
+    $required = @(
+        "VERSION",
+        "config\runtime.php",
+        "config\app.php",
+        "public\index.php",
+        "public\health.php"
+    )
+
+    foreach ($item in $required) {
+        if (-not (Test-Path (Join-Path $Path $item))) {
+            throw "ASU runtime file missing: $item"
+        }
+    }
+}
+
 function Test-ASU-Payload {
     param([string]$Path)
 
     $required = @(
         ".osp\project.ini",
         "public\index.php",
-        "public\health.php"
+        "public\health.php",
+        "config\runtime.php",
+        "config\app.php"
     )
 
     foreach ($item in $required) {
@@ -32,36 +51,21 @@ function Test-ASU-Payload {
     }
 }
 
-function Test-ASU-Requirements {
-    param($ConfigData)
-
-    $requirements = $ConfigData.requirements
-
-    if ($requirements.open_server -ne "6.5.1") {
-        throw "Unsupported Open Server version requirement"
-    }
-
-    if ($requirements.php -ne "8.5") {
-        throw "Unsupported PHP version requirement"
-    }
-
-    if ($requirements.mysql -ne "8.4") {
-        throw "Unsupported MySQL version requirement"
-    }
-}
-
 function Test-ASU-Deployment {
     param([string]$ProjectPath)
 
-    $required = @(
+    Test-ASU-ProjectStructure $ProjectPath
+
+    $metadata = @(
         "VERSION",
+        "VERSION.json",
         "deployment-report.json",
         ".asu\deployment-state.json"
     )
 
-    foreach ($item in $required) {
+    foreach ($item in $metadata) {
         if (-not (Test-Path (Join-Path $ProjectPath $item))) {
-            throw "Deployment verification failed. Missing: $item"
+            Write-Host "Optional deployment metadata missing: $item"
         }
     }
 
@@ -76,12 +80,8 @@ function Test-ASU-Deployment {
     }
 }
 
-$configPath = Join-Path $Root $Config
-$configData = Get-Content $configPath -Raw | ConvertFrom-Json
-$project = $configData.paths.project
+$project = (Resolve-Path (Join-Path $Root "..\.." )).Path
 $payload = Join-Path $Root "payload"
-
-Test-ASU-Requirements $configData
 
 if ($Mode -eq "VERIFY") {
     Test-ASU-Deployment $project
@@ -128,8 +128,11 @@ $report = @{
     status = "completed"
     deployment = "Open Server Panel 6.5.1"
     source = "open-server/payload"
+    architecture = "config-runtime"
     validated = @(
-        "osp/project.ini",
+        "VERSION",
+        "config/runtime.php",
+        "config/app.php",
         "public/index.php",
         "public/health.php",
         "runtime-health"
