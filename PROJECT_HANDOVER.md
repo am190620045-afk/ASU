@@ -27,13 +27,15 @@ OSP deployment reached a working web state:
 - Fixed VERSION and project root detection.
 - Fixed backup archive self-inclusion.
 - Added Open Server runtime deployment target.
-- Created project state documentation.
+- Implemented clean runtime file filtering.
+- Restored required Open Server metadata deployment.
+- Updated project state documentation.
 
 ## Current correction
 
-Installer was copying the full repository into Open Server.
-The current fix changes deployment to copy only runtime files:
+Installer now deploys only runtime files and required OSP metadata:
 
+- .osp/
 - VERSION
 - VERSION.json
 - config/
