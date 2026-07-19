@@ -17,16 +17,7 @@ $Root = Split-Path -Parent $PSScriptRoot
 
 function Test-ASU-ProjectStructure {
     param([string]$Path)
-
-    $required = @(
-        "VERSION",
-        "config\runtime.php",
-        "config\app.php",
-        "public\index.php",
-        "public\health.php"
-    )
-
-    foreach ($item in $required) {
+    foreach ($item in @("VERSION","config\runtime.php","config\app.php","public\index.php","public\health.php")) {
         if (-not (Test-Path (Join-Path $Path $item))) {
             throw "ASU runtime file missing: $item"
         }
@@ -35,14 +26,7 @@ function Test-ASU-ProjectStructure {
 
 function Test-ASU-Payload {
     param([string]$Path)
-
-    $required = @(
-        ".osp\project.ini",
-        "public\index.php",
-        "public\health.php"
-    )
-
-    foreach ($item in $required) {
+    foreach ($item in @(".osp\project.ini","public\index.php","public\health.php")) {
         if (-not (Test-Path (Join-Path $Path $item))) {
             throw "Required deployment file missing: $item"
         }
@@ -51,21 +35,12 @@ function Test-ASU-Payload {
 
 function Test-ASU-Deployment {
     param([string]$ProjectPath)
-
     Test-ASU-ProjectStructure $ProjectPath
-
-    try {
-        $response = Invoke-WebRequest "http://asu.local/health.php" -UseBasicParsing
-        if ($response.StatusCode -ne 200) {
-            throw "Health endpoint returned invalid status"
-        }
-    }
-    catch {
-        throw "Runtime health verification failed"
-    }
+    $response = Invoke-WebRequest "http://asu.local/health.php" -UseBasicParsing
+    if ($response.StatusCode -ne 200) { throw "Health endpoint returned invalid status" }
 }
 
-$project = (Resolve-Path (Join-Path $Root "..\..")).Path
+$project = (Resolve-Path (Join-Path $Root "..\")).Path
 $payload = Join-Path $Root "payload"
 
 if ($Mode -eq "VERIFY") {
@@ -75,28 +50,11 @@ if ($Mode -eq "VERIFY") {
     exit
 }
 
-if (-not (Test-Path $payload)) {
-    throw "Deployment payload not found"
-}
-
 Test-ASU-Payload $payload
-
 Initialize-ASU-Runtime $project
 
-$existing = Test-Path (Join-Path $project "VERSION")
-
-if ($existing) {
+if (Test-Path (Join-Path $project "VERSION")) {
     Write-Host "Existing ASU installation detected"
-    Write-Host "1. Backup and upgrade"
-    Write-Host "2. Cancel"
-
-    $choice = Read-Host "Select"
-
-    if ($choice -ne "1") {
-        Write-Host "Cancelled"
-        exit
-    }
-
     New-ASU-Backup $project
     Write-ASU-State $project "UPGRADE_RUNNING"
 }
@@ -105,30 +63,9 @@ else {
 }
 
 Get-ChildItem $payload -Force | Copy-Item -Destination $project -Recurse -Force
-
 Set-Content (Join-Path $project "VERSION") $Version
 
 Test-ASU-ProjectStructure $project
-
-$report = @{
-    version = $Version
-    status = "completed"
-    deployment = "Open Server Panel 6.5.1"
-    source = "open-server/payload"
-    architecture = "config-runtime"
-    validated = @(
-        "VERSION",
-        "config/runtime.php",
-        "config/app.php",
-        "public/index.php",
-        "public/health.php",
-        "runtime-health"
-    )
-}
-
-$report | ConvertTo-Json | Set-Content (Join-Path $project "deployment-report.json")
-
 Write-ASU-State $project "COMPLETED"
 Write-ASU-Log "Deployment completed"
-
 Write-Host "Installation completed"
