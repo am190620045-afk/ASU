@@ -1,7 +1,7 @@
 # ==========================================
 # ASU Open Server Deployment Kit
 # ASU-Common.ps1
-# Version 0.2.0-preview
+# Version 0.2.1-preview
 # ==========================================
 
 $ASURoot = Split-Path -Parent $PSScriptRoot
@@ -48,11 +48,15 @@ function New-ASU-Backup {
 param([string]$ProjectPath)
 
     $backup = Join-Path $ProjectPath "backups"
-    if (!(Test-Path $backup)) { New-Item -ItemType Directory $backup | Out-Null }
+    if (!(Test-Path $backup)) { New-Item -ItemType Directory -Path $backup | Out-Null }
 
     $name = "asu_$(Get-ASU-Version)_$(Get-Date -Format yyyyMMdd_HHmmss).zip"
     $target = Join-Path $backup $name
 
-    Compress-Archive -Path "$ProjectPath\*" -DestinationPath $target
+    $items = Get-ChildItem -Path $ProjectPath -Force | Where-Object {
+        $_.Name -notin @("backups", ".asu", "reports")
+    }
+
+    Compress-Archive -Path $items.FullName -DestinationPath $target
     return $target
 }
