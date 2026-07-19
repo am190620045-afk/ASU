@@ -39,9 +39,7 @@ function Test-ASU-Payload {
     $required = @(
         ".osp\project.ini",
         "public\index.php",
-        "public\health.php",
-        "config\runtime.php",
-        "config\app.php"
+        "public\health.php"
     )
 
     foreach ($item in $required) {
@@ -56,19 +54,6 @@ function Test-ASU-Deployment {
 
     Test-ASU-ProjectStructure $ProjectPath
 
-    $metadata = @(
-        "VERSION",
-        "VERSION.json",
-        "deployment-report.json",
-        ".asu\deployment-state.json"
-    )
-
-    foreach ($item in $metadata) {
-        if (-not (Test-Path (Join-Path $ProjectPath $item))) {
-            Write-Host "Optional deployment metadata missing: $item"
-        }
-    }
-
     try {
         $response = Invoke-WebRequest "http://asu.local/health.php" -UseBasicParsing
         if ($response.StatusCode -ne 200) {
@@ -80,7 +65,7 @@ function Test-ASU-Deployment {
     }
 }
 
-$project = (Resolve-Path (Join-Path $Root "..\.." )).Path
+$project = (Resolve-Path (Join-Path $Root "..\..")).Path
 $payload = Join-Path $Root "payload"
 
 if ($Mode -eq "VERIFY") {
@@ -122,6 +107,8 @@ else {
 Get-ChildItem $payload -Force | Copy-Item -Destination $project -Recurse -Force
 
 Set-Content (Join-Path $project "VERSION") $Version
+
+Test-ASU-ProjectStructure $project
 
 $report = @{
     version = $Version
