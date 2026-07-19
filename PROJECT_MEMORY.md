@@ -5,12 +5,12 @@
 GitHub repository is the only source of code changes.
 
 Local copy is used only for:
-- git pull;
+- git pull origin main;
 - build;
 - testing;
 - Open Server verification.
 
-Do not make untracked manual changes in the local copy unless explicitly required.
+Do not make manual local source changes unless explicitly required.
 
 ## Repository
 
@@ -22,32 +22,87 @@ Branch:
 
 main
 
-## Completed deployment milestone
+## Environment
+
+Local repository:
+
+C:\Project_ASU\ASU
+
+Open Server:
+
+C:\OSPanel\
+
+Runtime:
+
+C:\OSPanel\home\asu.local
+
+## Completed milestone
 
 OSP Deployment Improvement is completed.
 
-## Confirmed working
+Confirmed:
+- asu.local opens;
+- health.php responds;
+- Install-ASU-OSP.ps1 -Mode VERIFY completes successfully.
 
-- Open Server site asu.local opens.
-- health.php responds.
-- PHP/Open Server environment is operational.
-- Install-ASU-OSP.ps1 VERIFY mode completes successfully.
+## ASU 0.3.6 Kernel Configuration Integration
 
-## Important fixes completed
+Current phase:
 
-- Removed obsolete config.json dependency.
-- Migrated installer to current config runtime architecture.
-- Fixed VERSION and runtime file detection.
-- Fixed backup archive generation issues.
-- Separated runtime deployment from repository source.
-- Restored required .osp Open Server metadata.
-- Hardened VERIFY health checking for Open Server local routing.
+Kernel Configuration Integration.
 
-## Current continuation point
+Completed:
 
-Start ASU 0.3.6 Kernel Configuration Integration.
+- added config/kernel.php;
+- added src/Config/KernelConfig.php;
+- integrated KernelConfig into src/Runtime/Kernel.php.
 
-Do not restart OSP deployment analysis unless a new deployment problem appears.
+Architecture:
+
+RuntimeConfig = runtime environment configuration.
+
+KernelConfig = kernel behavior configuration.
+
+## Current investigation
+
+After local Open Server verification, local git status showed changes:
+
+Modified:
+- VERSION
+- public/health.php
+- public/index.php
+
+Untracked:
+- .asu/
+- .osp/
+- README-OSP.txt
+- backups/
+- composer.lock
+- open-server/reports/
+- vendor/
+
+These changes are not yet confirmed as project changes.
+
+Do not:
+- git restore;
+- git reset;
+- delete files;
+- commit cleanup changes
+
+until GitHub source comparison is completed.
+
+## Next objective
+
+Verify deployment/source separation through GitHub:
+
+open-server/
+open-server/payload/
+
+Compare with:
+
+public/
+
+Determine whether deployment payload overwrites source files or changes are only local.
 
 ## Communication rule
 
