@@ -6,11 +6,10 @@ Transfer current ASU development state between chats without restarting analysis
 
 ## Repository
 
-`am190620045-afk/ASU`
+am190620045-afk/ASU
 
 Branch:
-
-`main`
+main
 
 ## Working process
 
@@ -18,75 +17,75 @@ GitHub is the only source of project changes.
 
 Local copy:
 
-`C:\Project_ASU\ASU`
+C:\Project_ASU\ASU
 
-is used only for:
-
-- git pull;
+Used only for:
+- git pull origin main;
 - build;
 - testing;
 - Open Server verification.
 
-## Current status
+## Completed
 
-OSP deployment is completed and validated.
+### OSP Deployment Improvement
+
+Completed and validated.
 
 Confirmed:
+- http://asu.local/ opens;
+- http://asu.local/health.php responds;
+- Install-ASU-OSP.ps1 -Mode VERIFY returns success.
 
-- http://asu.local/ opens.
-- http://asu.local/health.php responds.
-- `Install-ASU-OSP.ps1 -Mode VERIFY` returns success.
+### ASU 0.3.6 Kernel Configuration Integration
 
-## Completed tasks
+Completed:
 
-- Removed obsolete config.json dependency.
-- Migrated installer to runtime configuration architecture.
-- Fixed VERSION and project root detection.
-- Fixed backup archive creation.
-- Implemented Open Server runtime deployment.
-- Implemented clean runtime file filtering.
-- Restored required Open Server `.osp` metadata.
-- Hardened VERIFY health endpoint checking.
-- Updated project state documentation.
+- config/kernel.php
+- src/Config/KernelConfig.php
+- src/Runtime/Kernel.php integration
 
-## Runtime deployment structure
+## Current investigation
 
-Open Server runtime:
+After local Open Server verification, local git status contains:
 
-```
-C:\OSPanel\home\asu.local
+Modified:
+- VERSION
+- public/index.php
+- public/health.php
 
-.osp/
-config/
+Untracked:
+- .asu/
+- .osp/
+- README-OSP.txt
+- backups/
+- composer.lock
+- open-server/reports/
+- vendor/
+
+Do not reset, restore, delete or commit these changes until source is confirmed.
+
+## Next steps
+
+1. Verify GitHub source structure:
+
+open-server/
+open-server/payload/
+
+2. Compare with:
+
 public/
-VERSION
-VERSION.json
-```
 
-## Completed milestone
+3. Determine deployment/source separation issue.
 
-OSP Deployment Improvement.
+4. Clean repository state.
 
-## Next development phase
+5. Continue ASU 0.3.6 validation.
 
-ASU 0.3.6 Kernel Configuration Integration.
+## User action rule
 
-## New chat continuation rule
-
-Do not restart project analysis.
-
-Continue from the completed OSP deployment state.
-
-Before changes:
-
-```
-cd C:\Project_ASU\ASU
-git pull origin main
-```
-
-When user actions are required, provide:
+When actions are required, provide:
 
 1. command;
 2. working directory;
 3. expected result;
-4. required output to send back.
+4. required output.
