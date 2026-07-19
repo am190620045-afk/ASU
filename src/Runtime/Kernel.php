@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace ASU\Runtime;
 
-use ASU\Config\Loader;
+use ASU\Config\KernelConfig;
 use ASU\Config\RuntimeConfig;
 use ASU\Module\Bootstrap as ModuleBootstrap;
 use ASU\Module\Discovery;
@@ -21,10 +21,12 @@ final class Kernel
     private State $state;
     private Persistence $persistence;
     private RuntimeConfig $config;
+    private KernelConfig $kernelConfig;
 
-    public function __construct(?RuntimeConfig $config = null)
+    public function __construct(?RuntimeConfig $config = null, ?KernelConfig $kernelConfig = null)
     {
         $this->config = $config ?? new RuntimeConfig();
+        $this->kernelConfig = $kernelConfig ?? new KernelConfig();
         $this->container = new Container();
         $this->services = new ServiceManager();
         $this->modules = new ModuleManager();
@@ -64,9 +66,11 @@ final class Kernel
     private function registerServices(): void
     {
         $this->container->set('config', $this->config);
+        $this->container->set('kernel.config', $this->kernelConfig);
         $this->container->set('modules', new Discovery());
 
         $this->services->register('config', $this->container->get('config'));
+        $this->services->register('kernel.config', $this->container->get('kernel.config'));
         $this->services->register('modules', $this->container->get('modules'));
     }
 
