@@ -1,12 +1,14 @@
 # ==========================================
 # ASU Open Server Deployment Kit
 # Install-ASU-OSP.ps1
-# Version 0.3.0-preview
+# Version 0.4.0-preview
 # ==========================================
 
 param(
     [string]$Config = "..\config.json",
-    [string]$Version = "0.3.0"
+    [string]$Version = "0.4.0",
+    [ValidateSet("INSTALL", "VERIFY")]
+    [string]$Mode = "INSTALL"
 )
 
 $ErrorActionPreference = "Stop"
@@ -31,10 +33,35 @@ function Test-ASU-Payload {
     return $true
 }
 
+function Test-ASU-Deployment {
+    param([string]$ProjectPath)
+
+    $required = @(
+        "VERSION",
+        "deployment-report.json",
+        ".asu\deployment-state.json"
+    )
+
+    foreach ($item in $required) {
+        if (-not (Test-Path (Join-Path $ProjectPath $item))) {
+            throw "Deployment verification failed. Missing: $item"
+        }
+    }
+
+    return $true
+}
+
 $configPath = Join-Path $Root $Config
 $configData = Get-Content $configPath -Raw | ConvertFrom-Json
 $project = $configData.paths.project
 $payload = Join-Path $Root "payload"
+
+if ($Mode -eq "VERIFY") {
+    Test-ASU-Deployment $project
+    Write-ASU-Log "Deployment verification completed"
+    Write-Host "Deployment verification completed"
+    exit
+}
 
 if (-not (Test-Path $payload)) {
     throw "Deployment payload not found"
