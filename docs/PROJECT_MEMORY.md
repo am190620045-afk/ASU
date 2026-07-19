@@ -124,7 +124,8 @@ Verified implementation direction:
 - payload structure is validated before copying;
 - required web entry points are checked;
 - deployment execution remains controlled through Install-ASU-OSP.ps1;
-- deployment reporting is generated as part of runtime deployment preparation.
+- deployment reporting is generated as part of runtime deployment preparation;
+- VERIFY mode validates installed runtime state after deployment.
 
 The repository source tree remains separated from Open Server runtime files.
 
