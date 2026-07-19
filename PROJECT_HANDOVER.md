@@ -1,73 +1,57 @@
 # ASU Project Handover
 
-## Current status
+## Purpose
 
-Project ASU development continues from the confirmed state before Kernel integration.
+Transfer current ASU development state between chats without restarting analysis.
 
-Repository:
+## Repository
 
 `am190620045-afk/ASU`
 
-Main branch:
+Branch:
 
 `main`
 
-Last confirmed development milestone:
+## Current status
 
-`d996ad5 - Finalize OSP Deployment Improvement state before Kernel integration`
+OSP deployment reached a working web state:
+
+- http://asu.local/ opens.
+- http://asu.local/health.php responds.
 
 ## Completed tasks
 
-- GitHub synchronization workflow established.
-- Open Server Deployment Improvement completed.
-- Open Server deployment workflow prepared.
-- PROJECT_MEMORY.md created.
-- PROJECT_STATE.md created.
-- Local synchronization workflow verified.
+- GitHub-only change workflow preserved.
+- Removed obsolete config.json dependency.
+- Migrated installer to runtime configuration model.
+- Fixed VERSION and project root detection.
+- Fixed backup archive self-inclusion.
+- Added Open Server runtime deployment target.
+- Created project state documentation.
 
-## Current issue found
+## Current correction
 
-Open Server installer used an obsolete configuration model based on:
-
-`config.json`
-
-Current ASU architecture uses:
-
-- `config/runtime.php`
-- `config/app.php`
-- `config/app.config.ini`
-- `config/database.ini.example`
-
-## Applied fix
-
-`open-server/install/Install-ASU-OSP.ps1` was migrated to the current runtime configuration model.
-
-Installer now validates:
+Installer was copying the full repository into Open Server.
+The current fix changes deployment to copy only runtime files:
 
 - VERSION
-- runtime configuration files
-- public runtime files
-- deployment structure
-- health endpoint
+- VERSION.json
+- config/
+- public/
 
-`config.json` creation or usage is no longer required.
+Development files must remain outside the OSP runtime.
 
-## Next validation step
+## Validation steps
 
-Run locally:
+Run:
 
 ```
 git pull origin main
-```
-
-Then:
-
-```
 cd C:\Project_ASU\ASU\open-server\install
 .\Install-ASU-OSP.ps1
 ```
 
-After successful installation:
+Then:
 
 ```
 .\Install-ASU-OSP.ps1 -Mode VERIFY
@@ -78,12 +62,12 @@ Verify:
 - http://asu.local/
 - http://asu.local/health.php
 
-## Next development stage
+## Next development phase
 
-Only after successful OSP deployment:
+After successful OSP validation:
 
-ASU 0.3.6 Kernel Configuration Integration
+ASU 0.3.6 Kernel Configuration Integration.
 
-## Continuation template
+## Continuation rule
 
-Continue development from this handover document. Do not restart project analysis. GitHub is the only source of changes. Local copy is used only for pull, build, testing and Open Server verification.
+Do not restart project analysis. GitHub is the source of changes. Local copy is used only for pull, build, testing and Open Server verification.
