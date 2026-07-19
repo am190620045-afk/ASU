@@ -9,24 +9,36 @@ Date: 2026-07-19
 - GitHub is the single source of project changes.
 - OSP installer path resolution fixed.
 - VERSION and runtime configuration detection fixed.
-- Backup creation fixed to exclude generated directories.
+- Backup creation fixed.
 - Open Server deployment target implemented.
 - Clean runtime deployment filtering implemented.
 - Required .osp metadata restored.
 - asu.local and health.php confirmed working in Open Server.
+- Install-ASU-OSP.ps1 -Mode VERIFY completed successfully.
 
-## Current task
+## Completed milestone
 
-Finalize OSP installer verification hardening.
+OSP Deployment Improvement completed.
 
-## Current issue
+## Final deployment state
 
-Browser and Open Server resolved asu.local correctly, but PowerShell Invoke-WebRequest depended on local DNS resolution.
-The VERIFY health check is changed to use localhost with Host header routing.
+Runtime deployment contains only:
 
-## Next step
+- .osp/
+- VERSION
+- VERSION.json
+- config/
+- public/
 
-Run INSTALL and VERIFY after pulling the latest commit.
+Repository development files are not copied into Open Server runtime.
 
-Next major task after OSP validation:
+## Next development phase
+
 ASU 0.3.6 Kernel Configuration Integration.
+
+## Continuation requirements
+
+Do not restart previous OSP investigation.
+Continue from the validated deployment state.
+
+If user actions are required, provide detailed commands, location, expected output and required response.
