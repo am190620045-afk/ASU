@@ -29,6 +29,16 @@ function Test-ASU-Payload {
     }
 }
 
+function Test-ASU-Architecture {
+    $checker = Join-Path $PSScriptRoot "Test-ASU-Architecture.ps1"
+    if (Test-Path $checker) {
+        & $checker
+        if ($LASTEXITCODE -ne 0) {
+            throw "ASU architecture validation failed"
+        }
+    }
+}
+
 function Get-ASU-DeployPath { return "C:\OSPanel\home\asu.local" }
 
 function Test-ASU-HealthEndpoint {
@@ -65,6 +75,7 @@ if ($Mode -eq "VERIFY") {
 }
 
 Test-ASU-Payload $payload
+Test-ASU-Architecture
 Initialize-ASU-Runtime $project
 
 if (Test-Path (Join-Path $project "VERSION")) {
