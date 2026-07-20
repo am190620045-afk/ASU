@@ -1,91 +1,77 @@
-# ASU Project Handover
+# ASU PROJECT HANDOVER
 
-## Purpose
+## Продолжение работы
 
-Transfer current ASU development state between chats without restarting analysis.
+Продолжаем разработку ASU.
 
-## Repository
+НЕ НАЧИНАТЬ АНАЛИЗ ПРОЕКТА ЗАНОВО.
+
+Использовать:
+
+- PROJECT_MEMORY.md
+- PROJECT_STATE.md
+- PROJECT_HANDOVER.md
+
+## Репозиторий
 
 am190620045-afk/ASU
 
-Branch:
+Ветка:
 main
 
-## Working process
+## Рабочий процесс
 
-GitHub is the only source of project changes.
+GitHub — единственный источник изменений.
 
-Local copy:
-
+Локальная копия:
 C:\Project_ASU\ASU
 
-Used only for:
-- git pull origin main;
-- build;
-- testing;
-- Open Server verification.
+Open Server runtime:
+C:\OSPanel\home\asu.local
 
-## Completed
+## Текущее расследование
 
-### OSP Deployment Improvement
+В проекте есть два слоя:
 
-Completed and validated.
+1. Runtime
 
-Confirmed:
-- http://asu.local/ opens;
-- http://asu.local/health.php responds;
-- Install-ASU-OSP.ps1 -Mode VERIFY returns success.
+/public
 
-### ASU 0.3.6 Kernel Configuration Integration
+2. Deployment Payload
 
-Completed:
+/open-server/payload
 
-- config/kernel.php
-- src/Config/KernelConfig.php
-- src/Runtime/Kernel.php integration
+## Проблема для проверки
 
-## Current investigation
+Файл:
 
-After local Open Server verification, local git status contains:
+open-server/install/Install-ASU-OSP.ps1
 
-Modified:
-- VERSION
+Нужно определить, должен ли он использовать:
+
+/public
+
+или:
+
+/open-server/payload/public
+
+## Следующие действия
+
+Сравнить:
+
 - public/index.php
+- open-server/payload/public/index.php
 - public/health.php
+- open-server/payload/public/health.php
+- open-server/install/Install-ASU-OSP.ps1
 
-Untracked:
-- .asu/
-- .osp/
-- README-OSP.txt
-- backups/
-- composer.lock
-- open-server/reports/
-- vendor/
+После анализа принять решение по архитектуре установки.
 
-Do not reset, restore, delete or commit these changes until source is confirmed.
+## Правила взаимодействия
 
-## Next steps
+Если нужны действия пользователя:
 
-1. Verify GitHub source structure:
-
-open-server/
-open-server/payload/
-
-2. Compare with:
-
-public/
-
-3. Determine deployment/source separation issue.
-
-4. Clean repository state.
-
-5. Continue ASU 0.3.6 validation.
-
-## User action rule
-
-When actions are required, provide:
-
-1. command;
-2. working directory;
-3. expected result;
-4. required output.
+1. указать папку;
+2. дать команду;
+3. описать ожидаемый результат;
+4. указать нужный вывод.
