@@ -29,43 +29,76 @@ C:\Project_ASU\ASU
 Open Server runtime:
 C:\OSPanel\home\asu.local
 
-## Текущее расследование
+## Завершенное расследование Runtime / Payload
 
-В проекте есть два слоя:
+В проекте существуют два разных слоя:
 
 1. Runtime
 
 /public
 
+Назначение:
+
+- рабочее приложение ASU;
+- Runtime execution.
+
 2. Deployment Payload
 
 /open-server/payload
 
-## Проблема для проверки
+Назначение:
+
+- validation payload;
+- preview deployment;
+- проверка структуры Open Server.
+
+## Решение по Installer
 
 Файл:
 
 open-server/install/Install-ASU-OSP.ps1
 
-Нужно определить, должен ли он использовать:
+Использует Runtime источник:
 
 /public
 
-или:
+Не переносить установку на:
 
 /open-server/payload/public
 
-## Следующие действия
+без отдельного архитектурного решения.
 
-Сравнить:
+## Добавленные проверки
 
-- public/index.php
-- open-server/payload/public/index.php
-- public/health.php
-- open-server/payload/public/health.php
-- open-server/install/Install-ASU-OSP.ps1
+Добавлен:
 
-После анализа принять решение по архитектуре установки.
+open-server/install/Test-ASU-Architecture.ps1
+
+Проверяет:
+
+- Runtime файлы;
+- Payload файлы;
+- версии Runtime/Payload.
+
+Installer запускает архитектурную проверку перед установкой.
+
+## Текущая архитектура
+
+ASU Repository
+
+Runtime:
+/public
+
+Open Server Toolkit:
+/open-server/install
+/open-server/lib
+/open-server/payload
+
+## Следующие задачи
+
+1. Добавить Open Server Architecture раздел в README.md.
+2. Проверить release/package workflow.
+3. Рассмотреть CI проверку архитектуры.
 
 ## Правила взаимодействия
 
