@@ -2,7 +2,6 @@
 
 ## Проект
 
-Название:
 ASU — автоматизированная система управления
 
 Репозиторий:
@@ -15,67 +14,71 @@ main
 
 GitHub является единственным источником изменений проекта.
 
-Правила:
+Локальная копия используется только для:
+- git pull;
+- сборки;
+- запуска;
+- Open Server проверки;
+- тестирования.
 
-1. Все изменения кода выполняются через GitHub.
-2. Локальная копия используется только для:
-   - git pull;
-   - сборки;
-   - запуска;
-   - Open Server проверки;
-   - тестирования.
-3. Перед изменениями проверять состояние Git.
+## Архитектура проекта
 
-## Среда разработки
+Подтверждено разделение:
 
-Локальная папка:
-C:\Project_ASU\ASU
-
-Open Server runtime:
-C:\OSPanel\home\asu.local
-
-## Текущее состояние расследования
-
-В проекте обнаружены два слоя:
-
-1. Runtime:
+Runtime:
 
 /public
 
 Назначение:
-рабочее приложение.
+- рабочее приложение ASU;
+- Runtime Kernel;
+- web endpoints.
 
-2. Deployment Payload:
+Deployment Payload:
 
 /open-server/payload
 
 Назначение:
-файлы для установки через Open Server.
+- validation payload;
+- preview deployment;
+- проверка структуры установки.
 
-## Важное расследование
-
-Необходимо определить правильную архитектуру установки.
-
-Проверяется:
+## Решение по Installer
 
 open-server/install/Install-ASU-OSP.ps1
 
-Вопрос:
-должен ли установщик использовать:
+Использует Runtime источник:
 
 /public
 
-или:
+Installer не переводить на /open-server/payload без отдельного архитектурного решения.
 
-/open-server/payload/public
+## Анализ веток 2026-07-20
 
-До завершения сравнения архитектур решения не принимаются.
+Проверены:
+- develop;
+- ci/v0.2.0-github-actions;
+- release/v0.2.0-beta-runtime.2;
+- chore/v0.2.0-runtime-hardening;
+- feature/open-server-deployment-kit-v0.2.0;
+- feature/v0.2.0-beta.
 
-## Правила взаимодействия
+## Решения
 
-Если нужны действия пользователя:
+Интеграция выполняется пакетами.
 
-1. указать точную папку;
-2. дать полную команду;
-3. объяснить ожидаемый результат;
-4. указать какой вывод вернуть.
+Высокий приоритет:
+- Runtime Hardening;
+- Runtime Release Validation;
+- CI Quality Gates.
+
+Open Server Toolkit переносится выборочно:
+- ASU-Checksum.ps1;
+- ASU-Version.ps1;
+- ASU-Diagnostics.ps1 после адаптации.
+
+Не переносить сейчас:
+- новый Installer;
+- Migration Engine;
+- Rollback Engine;
+- feature/v0.2.0-beta core изменения.
