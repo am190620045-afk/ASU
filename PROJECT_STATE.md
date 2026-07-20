@@ -39,31 +39,35 @@ open-server/install/Install-ASU-OSP.ps1
 
 ## Результаты анализа
 
-Готово к интеграции:
-
 Runtime Hardening:
-- public/health.php;
-- public/status.php;
-- public/metrics.php;
-- apache/asu.conf.
 
-Release Validation:
-- runtime smoke tests;
-- release documentation;
-- release gate.
+Статус:
+COMPLETED
 
-CI:
-- PHP validation;
-- Composer validation;
-- Security checks;
-- Nginx validation.
+Причина:
+Runtime hardening изменения уже находятся в main.
 
-## Open Server Toolkit
+Не выполнять полный cherry-pick commit 16347e5529fa3792b94c1f65ac2f7818f6924070.
 
-Кандидаты:
-- ASU-Checksum.ps1;
-- ASU-Version.ps1;
-- ASU-Diagnostics.ps1 после адаптации.
+## Текущая интеграция
+
+Runtime Smoke Validation:
+
+Статус:
+IN PROGRESS
+
+Scope:
+- .github/workflows/runtime-smoke.yml;
+- scripts/runtime-smoke-test.sh.
+
+## Следующие этапы
+
+После Runtime Smoke Validation:
+
+1. Release Documentation.
+2. CI Quality Gates.
+3. Open Server Toolkit helpers.
+4. Отдельное решение по Deployment/Migration/Rollback.
 
 ## Отложено
 
@@ -71,12 +75,3 @@ CI:
 - Migration Engine;
 - Rollback Engine;
 - feature/v0.2.0-beta прямой merge.
-
-## Следующий этап
-
-Проверка конфликтов:
-- VERSION.json;
-- Dockerfile;
-- .github/workflows/*;
-- apache/*;
-- open-server/*.
