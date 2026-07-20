@@ -1,113 +1,81 @@
-# ASU Project Memory
+# ASU PROJECT MEMORY
 
-## Workflow
+## Проект
 
-GitHub repository is the only source of code changes.
+Название:
+ASU — автоматизированная система управления
 
-Local copy is used only for:
-- git pull origin main;
-- build;
-- testing;
-- Open Server verification.
-
-Do not make manual local source changes unless explicitly required.
-
-## Repository
-
-Repository:
-
+Репозиторий:
 am190620045-afk/ASU
 
-Branch:
-
+Основная ветка:
 main
 
-## Environment
+## Рабочий процесс
 
-Local repository:
+GitHub является единственным источником изменений проекта.
 
+Правила:
+
+1. Все изменения кода выполняются через GitHub.
+2. Локальная копия используется только для:
+   - git pull;
+   - сборки;
+   - запуска;
+   - Open Server проверки;
+   - тестирования.
+3. Перед изменениями проверять состояние Git.
+
+## Среда разработки
+
+Локальная папка:
 C:\Project_ASU\ASU
 
-Open Server:
-
-C:\OSPanel\
-
-Runtime:
-
+Open Server runtime:
 C:\OSPanel\home\asu.local
 
-## Completed milestone
+## Текущее состояние расследования
 
-OSP Deployment Improvement is completed.
+В проекте обнаружены два слоя:
 
-Confirmed:
-- asu.local opens;
-- health.php responds;
-- Install-ASU-OSP.ps1 -Mode VERIFY completes successfully.
+1. Runtime:
 
-## ASU 0.3.6 Kernel Configuration Integration
+/public
 
-Current phase:
+Назначение:
+рабочее приложение.
 
-Kernel Configuration Integration.
+2. Deployment Payload:
 
-Completed:
+/open-server/payload
 
-- added config/kernel.php;
-- added src/Config/KernelConfig.php;
-- integrated KernelConfig into src/Runtime/Kernel.php.
+Назначение:
+файлы для установки через Open Server.
 
-Architecture:
+## Важное расследование
 
-RuntimeConfig = runtime environment configuration.
+Необходимо определить правильную архитектуру установки.
 
-KernelConfig = kernel behavior configuration.
+Проверяется:
 
-## Current investigation
+open-server/install/Install-ASU-OSP.ps1
 
-After local Open Server verification, local git status showed changes:
+Вопрос:
+должен ли установщик использовать:
 
-Modified:
-- VERSION
-- public/health.php
-- public/index.php
+/public
 
-Untracked:
-- .asu/
-- .osp/
-- README-OSP.txt
-- backups/
-- composer.lock
-- open-server/reports/
-- vendor/
+или:
 
-These changes are not yet confirmed as project changes.
+/open-server/payload/public
 
-Do not:
-- git restore;
-- git reset;
-- delete files;
-- commit cleanup changes
+До завершения сравнения архитектур решения не принимаются.
 
-until GitHub source comparison is completed.
+## Правила взаимодействия
 
-## Next objective
+Если нужны действия пользователя:
 
-Verify deployment/source separation through GitHub:
-
-open-server/
-open-server/payload/
-
-Compare with:
-
-public/
-
-Determine whether deployment payload overwrites source files or changes are only local.
-
-## Communication rule
-
-If actions are required from the user, provide:
-1. exact command;
-2. exact directory;
-3. expected result;
-4. what output to return.
+1. указать точную папку;
+2. дать полную команду;
+3. объяснить ожидаемый результат;
+4. указать какой вывод вернуть.
