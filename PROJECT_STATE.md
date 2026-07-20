@@ -1,6 +1,7 @@
 # ASU PROJECT STATE
 
 Дата обновления:
+
 2026-07-20
 
 ## Репозиторий
@@ -29,32 +30,78 @@ C:\Project_ASU\ASU
 - Open Server deployment;
 - работоспособность asu.local;
 - health.php;
-- Install-ASU-OSP.ps1 VERIFY.
+- Install-ASU-OSP.ps1 VERIFY;
+- история создания open-server/payload;
+- назначение Runtime и Deployment Payload.
 
-## Текущее расследование
+## Завершенное расследование
 
-Проверяется разделение:
+Подтверждено разделение:
 
 Runtime:
+
 /public
 
+Назначение:
+
+- рабочее приложение ASU;
+- Runtime Kernel;
+- web endpoints.
+
 Deployment Payload:
+
 /open-server/payload
 
-## Главная задача
+Назначение:
 
-Определить корректный источник файлов для Install-ASU-OSP.ps1.
+- validation payload;
+- preview deployment;
+- проверка структуры установки.
 
-Проверить:
+## Решение по Installer
 
-1. public/index.php
-2. open-server/payload/public/index.php
-3. public/health.php
-4. open-server/payload/public/health.php
-5. open-server/install/Install-ASU-OSP.ps1
+Файл:
 
-После сравнения принять решение по архитектуре установки.
+open-server/install/Install-ASU-OSP.ps1
+
+Оставлен без изменения источника Runtime.
+
+Установка использует:
+
+/public
+
+Payload используется для проверки и не является заменой Runtime.
+
+## Выполненные изменения
+
+Добавлено:
+
+open-server/ARCHITECTURE.md
+
+Назначение:
+
+- документирование Runtime/Payload разделения.
+
+Добавлено:
+
+open-server/install/Test-ASU-Architecture.ps1
+
+Назначение:
+
+- проверка структуры Runtime;
+- проверка Payload;
+- проверка версий.
+
+Обновлен:
+
+open-server/install/Install-ASU-OSP.ps1
+
+Добавлен запуск архитектурной проверки перед установкой.
 
 ## Следующий этап
 
-Не изменять установщик до завершения анализа источников файлов.
+Проверить:
+
+1. Добавление Open Server раздела в README.md.
+2. Проверку release/package процесса.
+3. Возможность автоматического запуска архитектурного теста в CI.
