@@ -1,10 +1,9 @@
-# ASU Project State
+# ASU PROJECT STATE
 
-## Current checkpoint
+Дата обновления:
+2026-07-20
 
-Date: 2026-07-19
-
-## Repository
+## Репозиторий
 
 GitHub:
 am190620045-afk/ASU
@@ -12,60 +11,50 @@ am190620045-afk/ASU
 Branch:
 main
 
-## Completed
+## Рабочий процесс
 
-- GitHub remains the single source of project changes.
-- OSP Deployment Improvement completed.
-- asu.local and health.php verified.
-- Install-ASU-OSP.ps1 -Mode VERIFY completed successfully.
-- Kernel configuration layer added.
+GitHub — единственный источник изменений.
 
-## ASU 0.3.6 Kernel Configuration Integration
+Локальная копия:
+C:\Project_ASU\ASU
 
-Completed:
+Используется только для сборки, запуска и тестирования.
 
-- config/kernel.php added.
-- src/Config/KernelConfig.php added.
-- src/Runtime/Kernel.php integrated with KernelConfig.
+## Выполнено
 
-## Current investigation
+Проверено:
 
-Need to verify source of local modifications:
+- доступ GitHub Connector;
+- структура проекта;
+- Open Server deployment;
+- работоспособность asu.local;
+- health.php;
+- Install-ASU-OSP.ps1 VERIFY.
 
-Modified:
-- VERSION
-- public/index.php
-- public/health.php
+## Текущее расследование
 
-Untracked:
-- .asu/
-- .osp/
-- README-OSP.txt
-- backups/
-- composer.lock
-- open-server/reports/
-- vendor/
+Проверяется разделение:
 
-Do not clean or commit until GitHub source comparison is completed.
+Runtime:
+/public
 
-## Next phase
+Deployment Payload:
+/open-server/payload
 
-Verify:
+## Главная задача
 
-open-server/
-open-server/payload/
+Определить корректный источник файлов для Install-ASU-OSP.ps1.
 
-against:
+Проверить:
 
-public/
+1. public/index.php
+2. open-server/payload/public/index.php
+3. public/health.php
+4. open-server/payload/public/health.php
+5. open-server/install/Install-ASU-OSP.ps1
 
-Then complete repository cleanup and documentation update.
+После сравнения принять решение по архитектуре установки.
 
-## User action policy
+## Следующий этап
 
-When user actions are required provide:
-
-1. exact command;
-2. location;
-3. expected output;
-4. required response.
+Не изменять установщик до завершения анализа источников файлов.
