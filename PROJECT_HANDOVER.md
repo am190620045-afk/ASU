@@ -1,16 +1,14 @@
 # ASU PROJECT HANDOVER
 
-## Продолжение работы
-
-Продолжаем разработку ASU.
+Продолжать разработку ASU.
 
 НЕ НАЧИНАТЬ АНАЛИЗ ПРОЕКТА ЗАНОВО.
 
 Использовать:
-
-- PROJECT_MEMORY.md
-- PROJECT_STATE.md
-- PROJECT_HANDOVER.md
+- PROJECT_MEMORY.md;
+- PROJECT_STATE.md;
+- PROJECT_HANDOVER.md;
+- _ASU_ANALYSIS_EXPORT/.
 
 ## Репозиторий
 
@@ -19,92 +17,51 @@ am190620045-afk/ASU
 Ветка:
 main
 
-## Рабочий процесс
+## Текущее состояние
 
-GitHub — единственный источник изменений.
+Завершен анализ дополнительных веток относительно main.
 
-Локальная копия:
-C:\Project_ASU\ASU
-
-Open Server runtime:
-C:\OSPanel\home\asu.local
-
-## Завершенное расследование Runtime / Payload
-
-В проекте существуют два разных слоя:
-
-1. Runtime
-
-/public
-
-Назначение:
-
-- рабочее приложение ASU;
-- Runtime execution.
-
-2. Deployment Payload
-
-/open-server/payload
-
-Назначение:
-
-- validation payload;
-- preview deployment;
-- проверка структуры Open Server.
-
-## Решение по Installer
-
-Файл:
-
-open-server/install/Install-ASU-OSP.ps1
-
-Использует Runtime источник:
-
-/public
-
-Не переносить установку на:
-
-/open-server/payload/public
-
-без отдельного архитектурного решения.
-
-## Добавленные проверки
-
-Добавлен:
-
-open-server/install/Test-ASU-Architecture.ps1
-
-Проверяет:
-
-- Runtime файлы;
-- Payload файлы;
-- версии Runtime/Payload.
-
-Installer запускает архитектурную проверку перед установкой.
-
-## Текущая архитектура
-
-ASU Repository
+Подтверждено:
 
 Runtime:
 /public
 
-Open Server Toolkit:
-/open-server/install
-/open-server/lib
+Deployment Payload:
 /open-server/payload
 
-## Следующие задачи
+Installer сохраняет Runtime источник /public.
 
-1. Добавить Open Server Architecture раздел в README.md.
-2. Проверить release/package workflow.
-3. Рассмотреть CI проверку архитектуры.
+## Следующая задача
 
-## Правила взаимодействия
+Подготовить безопасную интеграцию в main.
 
-Если нужны действия пользователя:
+Порядок:
 
-1. указать папку;
-2. дать команду;
-3. описать ожидаемый результат;
-4. указать нужный вывод.
+1. Runtime Hardening
+2. Runtime Release Validation
+3. CI Quality Gates
+4. Open Server Toolkit helpers
+5. Docker и package workflow адаптация
+
+## Конфликтные зоны
+
+Проверить вручную:
+- VERSION.json;
+- Dockerfile;
+- .github/workflows/*;
+- apache/*;
+- open-server/*.
+
+## Не делать
+
+Не выполнять полный merge всех веток.
+
+Не заменять Installer новой схемой Deployment Kit.
+
+## Если нужны действия пользователя
+
+Указать:
+1. папку;
+2. полную команду;
+3. ожидаемый результат;
+4. что вернуть в analysis/reports.
