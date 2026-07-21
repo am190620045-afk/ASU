@@ -1,0 +1,26 @@
+name: CI Quality Gates
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  quality-gates:
+    name: Quality Gates
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check forbidden paths
+        run: bash scripts/ci/check-forbidden-paths.sh
+
+      - name: Validate PHP
+        run: bash scripts/ci/validate-php.sh
+
+      - name: Validate Composer
+        run: bash scripts/ci/validate-composer.sh
+
+      - name: Validate documentation sync
+        run: bash scripts/ci/validate-doc-sync.sh
