@@ -10,6 +10,20 @@
 - PROJECT_HANDOVER.md;
 - _ASU_ANALYSIS_EXPORT/.
 
+## Development Freeze Point
+
+Статус:
+FROZEN
+
+Дата:
+2026-07-21
+
+Документ:
+_ASU_ANALYSIS_EXPORT/FREEZE_POINT_2026-07-21.md
+
+Последний стабильный baseline:
+da88624f59cccddb78bb558dec9c9421b50ec5e4
+
 ## Репозиторий
 
 am190620045-afk/ASU
@@ -19,9 +33,16 @@ main
 
 ## Текущее состояние
 
-Завершен анализ дополнительных веток относительно main.
+Завершено:
 
-Подтверждено:
+- анализ веток;
+- Runtime Hardening;
+- Runtime Smoke Validation;
+- Release Documentation package;
+- CI Quality Gates;
+- Documentation Synchronization.
+
+## Архитектура
 
 Runtime:
 /public
@@ -29,34 +50,16 @@ Runtime:
 Deployment Payload:
 /open-server/payload
 
-Installer сохраняет Runtime источник /public.
+Installer:
+open-server/install/Install-ASU-OSP.ps1
 
-## Интеграционный статус
-
-Завершено:
-
-- анализ веток;
-- проверка Runtime Hardening;
-- подтверждение разделения Runtime/Deployment;
-- Runtime Smoke Validation;
-- Release Documentation package;
-- CI Quality Gates.
-
-## Release Documentation
-
-Статус:
-COMPLETED.
-
-В main включены:
-- RELEASE.md;
-- RELEASE_NOTES.md;
-- RELEASE_GATE.md;
-- FINAL_RELEASE_CHECK.md.
+Источник Runtime:
+/public
 
 ## CI Quality Gates
 
 Статус:
-COMPLETED.
+COMPLETED
 
 PR:
 #12
@@ -64,38 +67,30 @@ PR:
 Merge:
 863a78e37e5d36b99199eef8980f717387d5b325
 
-## Следующая задача
+## Приостановлено
 
-Open Server Toolkit helpers.
+Open Server Toolkit helpers
 
-## После CI Quality Gates
+Статус:
+PAUSED
 
-1. Open Server Toolkit helpers.
-2. Отдельное решение по Deployment/Migration/Rollback.
+Разработка не начиналась.
 
-## Не включать в текущую интеграцию
+## Возобновление работы
 
-- VERSION.json;
-- Dockerfile;
-- полный merge feature/v0.2.0-beta;
-- новый Installer;
+Перед продолжением:
+
+1. Прочитать проектную память и Freeze Point.
+2. Не повторять анализ Runtime/Release/CI.
+3. Продолжить с выбранного нового направления.
+
+## Ограничения
+
+Не выполнять без отдельного согласования:
+
+- перенос Installer на payload;
+- изменение Runtime источника;
 - Migration Engine;
 - Rollback Engine;
-- /open-server deployment изменения.
-
-## Конфликтные зоны
-
-Проверять отдельно:
-- VERSION.json;
-- Dockerfile;
-- .github/workflows/*;
-- apache/*;
-- open-server/*.
-
-## Если нужны действия пользователя
-
-Указать:
-1. папку;
-2. полную команду;
-3. ожидаемый результат;
-4. что вернуть в analysis/reports.
+- изменение deployment архитектуры;
+- полный merge feature/v0.2.0-beta.
