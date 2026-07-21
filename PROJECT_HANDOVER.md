@@ -37,21 +37,29 @@ Installer сохраняет Runtime источник /public.
 
 - анализ веток;
 - проверка Runtime Hardening;
-- подтверждение разделения Runtime/Deployment.
+- подтверждение разделения Runtime/Deployment;
+- Runtime Smoke Validation.
 
 Runtime Hardening не требует отдельного PR.
 
 Причина:
 Runtime изменения уже присутствуют в main.
 
-## Следующая задача
+Runtime Smoke Validation:
 
-Runtime Smoke Validation.
+Статус:
+COMPLETED.
 
-Разрешённый scope:
+Причина:
+Runtime Smoke workflow и smoke validation script уже интегрированы в main.
 
+Проверенные файлы:
 - .github/workflows/runtime-smoke.yml;
 - scripts/runtime-smoke-test.sh.
+
+## Следующая задача
+
+Release Documentation.
 
 ## После Runtime Smoke Validation
 
