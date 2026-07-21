@@ -1,7 +1,7 @@
 # ASU PROJECT STATE
 
 Дата обновления:
-2026-07-20
+2026-07-21
 
 ## Репозиторий
 
@@ -54,9 +54,12 @@ Runtime hardening изменения уже находятся в main.
 Runtime Smoke Validation:
 
 Статус:
-IN PROGRESS
+COMPLETED
 
-Scope:
+Причина:
+Runtime Smoke workflow и smoke validation script уже интегрированы в main.
+
+Проверенные файлы:
 - .github/workflows/runtime-smoke.yml;
 - scripts/runtime-smoke-test.sh.
 
