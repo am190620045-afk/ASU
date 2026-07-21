@@ -1,49 +1,50 @@
-# ASU v0.2.0-beta-runtime.2 Release Notes
+# ASU Release Notes
 
 ## Summary
 
-ASU v0.2.0-beta-runtime.2 delivers a containerized runtime demo with a real Apache web execution environment.
+This document describes the current ASU release state after Runtime Hardening and Runtime Smoke Validation completion.
 
-## Highlights
+## Completed Changes
 
-- Modular runtime kernel
-- Lifecycle hook execution
-- Runtime persistence and validation
-- Metrics and observability layers
-- Web runtime dashboard
-- Production Docker deployment
+- Runtime Hardening completed.
+- Runtime Smoke Validation completed.
+- Project documentation synchronized.
+- Runtime/Payload architecture separation confirmed.
 
-## Deployment Stack
+## Architecture Boundaries
 
-- PHP 8.4
-- Apache 2.4
-- Composer optimized autoload
-- Docker Compose
-- OPcache production tuning
-
-## Available Endpoints
+Runtime:
 
 ```
-/
-/dashboard.php
-/health.php
-/metrics.php
-/modules.php
-/status.php
+/public
 ```
 
-## Verification
+Open Server Toolkit:
 
-Validation is performed through:
-
-```bash
-bash scripts/runtime-smoke-test.sh
+```
+/open-server
 ```
 
-and CI runtime smoke workflow.
+Deployment Payload:
 
-## Release Stage
+```
+/open-server/payload
+```
 
-Beta demo release candidate.
+## Validation
 
-Final publication requires successful runtime execution and version tag creation.
+Release validation includes:
+
+- repository state verification;
+- runtime validation;
+- smoke validation;
+- documentation completeness checks.
+
+## Scope Restrictions
+
+This release documentation does not include:
+
+- Installer changes;
+- Migration Engine changes;
+- Rollback Engine changes;
+- Deployment implementation changes.
