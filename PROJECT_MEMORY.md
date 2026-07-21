@@ -83,11 +83,14 @@ Commit 16347e5529fa3792b94c1f65ac2f7818f6924070 не использовать к
 - runtime изменения уже интегрированы;
 - остальные части commit относятся к другим зонам.
 
-Текущий пакет:
+Runtime Smoke Validation:
 
-Runtime Smoke Validation.
+Статус: COMPLETED.
 
-Разрешённые файлы:
+Причина:
+Runtime Smoke workflow и smoke validation script уже интегрированы в main.
+
+Проверенные файлы:
 - .github/workflows/runtime-smoke.yml;
 - scripts/runtime-smoke-test.sh.
 
