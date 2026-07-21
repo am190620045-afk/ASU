@@ -84,6 +84,23 @@ Runtime Smoke Validation:
 - RELEASE_GATE.md;
 - FINAL_RELEASE_CHECK.md.
 
+## CI Quality Gates
+
+Статус: COMPLETED.
+
+PR:
+#12
+
+Merge commit:
+863a78e37e5d36b99199eef8980f717387d5b325
+
+Добавлено:
+- .github/workflows/quality-gates.yml;
+- scripts/ci/check-forbidden-paths.sh;
+- scripts/ci/validate-php.sh;
+- scripts/ci/validate-composer.sh;
+- scripts/ci/validate-doc-sync.sh.
+
 ## Open Server Toolkit
 
 Кандидаты:
