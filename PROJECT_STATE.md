@@ -15,13 +15,12 @@ main
 
 Завершено сравнение дополнительных веток с main.
 
-Проверены:
-- develop;
-- ci/v0.2.0-github-actions;
-- release/v0.2.0-beta-runtime.2;
-- chore/v0.2.0-runtime-hardening;
-- feature/open-server-deployment-kit-v0.2.0;
-- feature/v0.2.0-beta.
+Подтверждено:
+- анализ веток;
+- Runtime Hardening;
+- Runtime/Payload separation;
+- Runtime Smoke Validation;
+- Release Documentation package.
 
 ## Подтвержденная архитектура
 
@@ -44,33 +43,25 @@ Runtime Hardening:
 Статус:
 COMPLETED
 
-Причина:
-Runtime hardening изменения уже находятся в main.
-
 Не выполнять полный cherry-pick commit 16347e5529fa3792b94c1f65ac2f7818f6924070.
 
 ## Текущая интеграция
+
+Release Documentation:
+
+Статус:
+COMPLETED
 
 Runtime Smoke Validation:
 
 Статус:
 COMPLETED
 
-Причина:
-Runtime Smoke workflow и smoke validation script уже интегрированы в main.
-
-Проверенные файлы:
-- .github/workflows/runtime-smoke.yml;
-- scripts/runtime-smoke-test.sh.
-
 ## Следующие этапы
 
-После Runtime Smoke Validation:
-
-1. Release Documentation.
-2. CI Quality Gates.
-3. Open Server Toolkit helpers.
-4. Отдельное решение по Deployment/Migration/Rollback.
+1. CI Quality Gates.
+2. Open Server Toolkit helpers.
+3. Отдельное решение по Deployment/Migration/Rollback.
 
 ## Отложено
 
