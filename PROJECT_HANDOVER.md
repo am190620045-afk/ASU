@@ -31,32 +31,60 @@ Deployment Payload:
 
 Installer сохраняет Runtime источник /public.
 
+## Интеграционный статус
+
+Завершено:
+
+- анализ веток;
+- проверка Runtime Hardening;
+- подтверждение разделения Runtime/Deployment;
+- Runtime Smoke Validation.
+
+Runtime Hardening не требует отдельного PR.
+
+Причина:
+Runtime изменения уже присутствуют в main.
+
+Runtime Smoke Validation:
+
+Статус:
+COMPLETED.
+
+Причина:
+Runtime Smoke workflow и smoke validation script уже интегрированы в main.
+
+Проверенные файлы:
+- .github/workflows/runtime-smoke.yml;
+- scripts/runtime-smoke-test.sh.
+
 ## Следующая задача
 
-Подготовить безопасную интеграцию в main.
+Release Documentation.
 
-Порядок:
+## После Runtime Smoke Validation
 
-1. Runtime Hardening
-2. Runtime Release Validation
-3. CI Quality Gates
-4. Open Server Toolkit helpers
-5. Docker и package workflow адаптация
+1. Release Documentation.
+2. CI Quality Gates.
+3. Open Server Toolkit helpers.
+
+## Не включать в текущую интеграцию
+
+- VERSION.json;
+- Dockerfile;
+- полный merge feature/v0.2.0-beta;
+- новый Installer;
+- Migration Engine;
+- Rollback Engine;
+- /open-server deployment изменения.
 
 ## Конфликтные зоны
 
-Проверить вручную:
+Проверять отдельно:
 - VERSION.json;
 - Dockerfile;
 - .github/workflows/*;
 - apache/*;
 - open-server/*.
-
-## Не делать
-
-Не выполнять полный merge всех веток.
-
-Не заменять Installer новой схемой Deployment Kit.
 
 ## Если нужны действия пользователя
 
