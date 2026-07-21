@@ -1,43 +1,40 @@
-# ASU v0.2.0-beta-runtime.2 Release Gate
+# ASU Release Gate
 
 ## Status
 
-Candidate: `v0.2.0-beta-runtime.2`
+Release documentation gate after Runtime Hardening and Runtime Smoke Validation completion.
 
 ## Gate Checklist
 
+### Repository
+
+- [x] Main branch state reviewed
+- [x] Integration scope verified
+
 ### Runtime
 
-- [x] Kernel initialized
-- [x] Lifecycle hooks available
-- [x] Persistence layer enabled
-- [x] State validation enabled
+- [x] Runtime Hardening completed
+- [x] Runtime Smoke Validation completed
 
-### Web Runtime
+### Architecture
 
-- [x] Runtime entry endpoint
-- [x] Dashboard endpoint
-- [x] Health endpoint
-- [x] Status endpoint
-- [x] Metrics endpoint
-- [x] Module registry endpoint
+- [x] Runtime/Payload separation confirmed
+- [x] Installer Runtime source boundary preserved
 
-### Container
+### Documentation
 
-- [x] PHP 8.4 Apache image
-- [x] Composer production install
-- [x] OPcache enabled
-- [x] Apache public document root
-- [x] Docker Compose deployment
-- [x] Healthcheck configured
+- [x] Project documentation synchronized
+- [x] Release documentation prepared
 
-### Validation
+## Excluded Scope
 
-- [x] Smoke test script
-- [x] CI smoke workflow
-- [ ] Final runtime execution
-- [ ] Git tag creation
+The release gate does not include:
+
+- Installer modifications;
+- Migration Engine changes;
+- Rollback Engine changes;
+- Deployment implementation changes.
 
 ## Release Decision
 
-Ready for final demo release after runtime execution and tag creation.
+Ready for final release review after completion of all required release checks.

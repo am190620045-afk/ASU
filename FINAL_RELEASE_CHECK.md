@@ -1,39 +1,36 @@
-# ASU v0.2.0-beta-runtime.2 Final Release Check
+# ASU Final Release Check
 
-## Runtime Execution
+## Repository State
 
-Before publishing the tag:
+- [x] Branch state reviewed
+- [x] Release documentation completed
 
-```bash
-docker compose build
-docker compose up -d
-```
+## Runtime Validation
 
-## Endpoint Verification
+- [x] Runtime Hardening completed
+- [x] Runtime Smoke Validation completed
+- [x] Runtime checks verified
 
-```bash
-curl http://localhost:8080/
-curl http://localhost:8080/health.php
-curl http://localhost:8080/status.php
-curl http://localhost:8080/metrics.php
-curl http://localhost:8080/modules.php
-curl http://localhost:8080/dashboard.php
-```
+## Architecture Review
 
-## Automated Verification
+- [x] Runtime/Payload separation confirmed
+- [x] Installer Runtime source boundary preserved
 
-```bash
-bash scripts/runtime-smoke-test.sh
-```
+## Documentation Review
 
-## Release Marker
+- [x] RELEASE.md reviewed
+- [x] RELEASE_NOTES.md reviewed
+- [x] RELEASE_GATE.md reviewed
 
-After successful validation:
+## Scope Verification
 
-```
-v0.2.0-beta-runtime.2
-```
+Confirm excluded areas remain unchanged:
 
-## Current State
+- [x] Installer
+- [x] Migration Engine
+- [x] Rollback Engine
+- [x] Deployment implementation
 
-Release candidate prepared. Runtime execution is the final gate.
+## Final Decision
+
+Release documentation package is ready for review.
