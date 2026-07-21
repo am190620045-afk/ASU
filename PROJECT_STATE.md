@@ -20,7 +20,8 @@ main
 - Runtime Hardening;
 - Runtime/Payload separation;
 - Runtime Smoke Validation;
-- Release Documentation package.
+- Release Documentation package;
+- CI Quality Gates.
 
 ## Подтвержденная архитектура
 
@@ -57,11 +58,21 @@ Runtime Smoke Validation:
 Статус:
 COMPLETED
 
+CI Quality Gates:
+
+Статус:
+COMPLETED
+
+PR:
+#12
+
+Merge commit:
+863a78e37e5d36b99199eef8980f717387d5b325
+
 ## Следующие этапы
 
-1. CI Quality Gates.
-2. Open Server Toolkit helpers.
-3. Отдельное решение по Deployment/Migration/Rollback.
+1. Open Server Toolkit helpers.
+2. Отдельное решение по Deployment/Migration/Rollback.
 
 ## Отложено
 
