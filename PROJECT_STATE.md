@@ -11,17 +11,30 @@ am190620045-afk/ASU
 Branch:
 main
 
+## Development Freeze Point
+
+Статус:
+FROZEN
+
+Дата:
+2026-07-21
+
+Freeze document:
+_ASU_ANALYSIS_EXPORT/FREEZE_POINT_2026-07-21.md
+
+Baseline:
+da88624f59cccddb78bb558dec9c9421b50ec5e4
+
 ## Выполнено
 
-Завершено сравнение дополнительных веток с main.
-
-Подтверждено:
+Завершено:
 - анализ веток;
 - Runtime Hardening;
 - Runtime/Payload separation;
 - Runtime Smoke Validation;
 - Release Documentation package;
-- CI Quality Gates.
+- CI Quality Gates;
+- Documentation Synchronization.
 
 ## Подтвержденная архитектура
 
@@ -36,15 +49,6 @@ open-server/install/Install-ASU-OSP.ps1
 
 Источник Runtime:
 /public
-
-## Результаты анализа
-
-Runtime Hardening:
-
-Статус:
-COMPLETED
-
-Не выполнять полный cherry-pick commit 16347e5529fa3792b94c1f65ac2f7818f6924070.
 
 ## Текущая интеграция
 
@@ -69,14 +73,24 @@ PR:
 Merge commit:
 863a78e37e5d36b99199eef8980f717387d5b325
 
-## Следующие этапы
+## Приостановленные этапы
 
-1. Open Server Toolkit helpers.
-2. Отдельное решение по Deployment/Migration/Rollback.
+Open Server Toolkit helpers:
 
-## Отложено
+Статус:
+PAUSED
+
+Разработка не начиналась.
+
+## Следующая точка после разморозки
+
+Определяется отдельным решением.
+
+## Не выполнять без согласования
 
 - новый Installer;
+- перенос Installer на payload;
 - Migration Engine;
 - Rollback Engine;
-- feature/v0.2.0-beta прямой merge.
+- feature/v0.2.0-beta прямой merge;
+- изменение deployment архитектуры.
