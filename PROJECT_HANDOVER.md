@@ -39,7 +39,8 @@ Installer сохраняет Runtime источник /public.
 - проверка Runtime Hardening;
 - подтверждение разделения Runtime/Deployment;
 - Runtime Smoke Validation;
-- Release Documentation package.
+- Release Documentation package;
+- CI Quality Gates.
 
 ## Release Documentation
 
@@ -52,15 +53,25 @@ COMPLETED.
 - RELEASE_GATE.md;
 - FINAL_RELEASE_CHECK.md.
 
+## CI Quality Gates
+
+Статус:
+COMPLETED.
+
+PR:
+#12
+
+Merge:
+863a78e37e5d36b99199eef8980f717387d5b325
+
 ## Следующая задача
 
-CI Quality Gates.
+Open Server Toolkit helpers.
 
-## После Release Documentation
+## После CI Quality Gates
 
-1. CI Quality Gates.
-2. Open Server Toolkit helpers.
-3. Отдельное решение по Deployment/Migration/Rollback.
+1. Open Server Toolkit helpers.
+2. Отдельное решение по Deployment/Migration/Rollback.
 
 ## Не включать в текущую интеграцию
 
