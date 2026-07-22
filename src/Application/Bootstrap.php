@@ -7,7 +7,6 @@ namespace ASU\Application;
 use ASU\Controller\HomeController;
 use ASU\Http\Request;
 use ASU\Http\Response;
-use ASU\Http\Response as HttpResponse;
 use ASU\Routing\Route;
 use ASU\Routing\Router;
 use ASU\View\Renderer;
