@@ -2,15 +2,21 @@
 
 ## Current Version
 
-ASU 0.3.5.1
+ASU Web Application Foundation
 
 ## Environment
 
 Open Server Panel 6.5.1
 
-PHP 8.5.4
+Development PHP 8.5.4
+
+Minimum supported PHP 8.3+
 
 Composer 2.10.2
+
+Database target:
+
+MySQL 8.4
 
 ## Completed
 
@@ -40,25 +46,65 @@ Composer 2.10.2
 
 [x] OSP Deployment Improvement completed
 
+[x] HTTP application foundation
+
+[x] Routing foundation
+
+[x] Application foundation
+
+[x] View renderer foundation
+
+[x] Home controller foundation
+
+[x] Web application entrypoint
+
 ## Verified Runtime Status
 
-The following endpoints were successfully verified:
+The runtime foundation was integrated through the public web entrypoint.
+
+Testing target:
 
 `http://asu.local/`
 
-`http://asu.local/health.php`
-
 ## Current Development Stage
 
-ASU 0.3.6 — Kernel Configuration Integration
+ASU Web Application Foundation
 
 ## In Progress
 
-[ ] Kernel bootstrap analysis
+[ ] Database foundation
 
-[ ] Kernel configuration loading flow
+[ ] User entity and storage layer
 
-[ ] Service initialization architecture
+[ ] Authentication system
+
+[ ] Registration and login
+
+[ ] Session management
+
+[ ] Administrative panel foundation
+
+[ ] Theme management system
+
+## Architecture Direction
+
+Current functional architecture direction:
+
+```
+Database
+    |
+    v
+User System
+    |
+    v
+Authentication
+    |
+    v
+Admin Panel
+    |
+    v
+Theme System
+```
 
 ## Deployment Strategy
 
@@ -68,21 +114,22 @@ ASU deployment uses a clean reproducible deployment from:
 
 The deployment process preserves Open Server project configuration and separates source repository files from runtime files.
 
-## Deployment Improvement Status
+## Development Workflow
 
-Completed:
+GitHub is the single source of truth.
 
-- payload validation;
-- OSP project configuration validation;
-- environment requirements validation;
-- controlled deployment workflow;
-- deployment reporting;
-- VERIFY deployment mode;
-- runtime health verification.
+Local environment is used only for:
+
+- repository synchronization;
+- build;
+- testing;
+- Open Server verification.
 
 ## Next Actions
 
-1. Begin ASU 0.3.6 Kernel Configuration Integration.
-2. Analyze current bootstrap initialization flow.
-3. Introduce kernel configuration layer without breaking Runtime Health.
-4. Update PROJECT_MEMORY.md with Kernel decisions.
+1. Synchronize local environment after Web Application Foundation merge.
+2. Verify Web Runtime on Open Server Panel 6.5.1.
+3. Start Database Foundation.
+4. Implement Authentication Foundation.
+5. Create Admin Panel Foundation.
+6. Implement Theme Management System.
