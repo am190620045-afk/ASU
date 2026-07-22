@@ -8,7 +8,7 @@ use ASU\Http\Request;
 use ASU\Http\Response;
 use ASU\Routing\Router;
 
-final class Application
+final class Application implements ApplicationInterface
 {
     public function __construct(
         private readonly Router $router,
