@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace ASU\Application;
 
 use ASU\Controller\HomeController;
-use ASU\Http\Request;
 use ASU\Http\Response;
 use ASU\Routing\Route;
 use ASU\Routing\Router;
@@ -27,7 +26,7 @@ final class Bootstrap
             new Route(
                 'GET',
                 '/',
-                static function (Request $request) use ($controller): Response {
+                static function () use ($controller): Response {
                     return $controller->index();
                 }
             )
