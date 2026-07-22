@@ -1,96 +1,111 @@
 # ASU
 
-## ASU v0.2.0-beta-runtime.2
+## ASU Web Application Foundation
 
-Automated System Unit (ASU) runtime platform.
+Automated System Unit (ASU) application platform.
 
 ## Overview
 
-ASU is a modular application runtime platform with lifecycle management, persistence, validation, observability, metrics, and web runtime capabilities.
+ASU is a modular PHP application platform that is moving from runtime verification and deployment hardening into functional web application development.
 
-The current milestone delivers a runnable containerized demo runtime through PHP 8.4 Apache.
+The current milestone delivers the first web application foundation:
+
+- application bootstrap;
+- HTTP application flow;
+- routing foundation;
+- view rendering foundation;
+- home page runtime entrypoint.
 
 ## Current Status
 
-Runtime demo release preparation.
+Completed:
 
-Implemented:
+- Runtime Kernel foundation
+- Module Lifecycle foundation
+- Runtime validation and observability layers
+- Web Application Runtime Foundation
+- Application bootstrap
+- View renderer foundation
+- Home controller foundation
+- Public web entrypoint
 
-- Runtime Kernel
-- Module Lifecycle Hooks
-- Runtime Persistence
-- Runtime State Validation
-- Metrics Layer
-- Performance Layer
-- Observability Layer
-- Web Runtime Layer
-- Docker production foundation
-- Apache public document root deployment
-- Composer production build
-- OPcache runtime optimization
+Next development stages:
 
-## Web Endpoints
+- Database foundation
+- User authentication system
+- Registration and login
+- Session management
+- Administrative panel
+- Theme management system
 
-```
-/
-/dashboard.php
-/health.php
-/metrics.php
-/modules.php
-/status.php
-```
+## Development Environment
 
-## Deployment
+Development:
 
-See:
+- PHP 8.5
+- Composer
 
-```
-DEPLOYMENT.md
-```
+Minimum supported PHP version:
 
-## Production Preview
+- PHP 8.3+
 
-Prepare environment:
+Testing environment:
 
-```bash
-cp .env.example .env
-```
+- Open Server Panel 6.5.1
+- Apache
+- MySQL 8.4
 
-Build and start runtime:
+## Development Workflow
 
-```bash
-docker compose build
-docker compose up -d
-```
+GitHub repository is the single source of truth.
 
-Verify runtime health:
+Local environment is used only for:
 
-```bash
-curl http://localhost:8080/health.php
-```
+- cloning the repository;
+- building;
+- testing;
+- Open Server Panel verification.
 
-Internal application directories should not be exposed publicly:
+Project deployment testing path:
 
 ```
-/src
-/config
-/vendor
-/storage
+C:\OSPanel\home\asu.local
+```
+
+## Architecture Direction
+
+The next functional architecture stage:
+
+```
+Database
+    |
+    v
+User System
+    |
+    v
+Authentication
+    |
+    v
+Admin Panel
+    |
+    v
+Theme System
 ```
 
 ## Technology Stack
 
-- PHP 8.4+
-- Apache 2.4
+- PHP 8.5 development
+- PHP 8.3+ compatibility target
+- Apache
+- MySQL 8.4
 - Composer
-- Docker
-- Docker Compose
+- Open Server Panel 6.5.1
 
 ## Versioning
 
-Current version:
+Current development milestone:
 
-`ASU v0.2.0-beta-runtime.2`
+`ASU Web Application Foundation`
 
 ## License
 
