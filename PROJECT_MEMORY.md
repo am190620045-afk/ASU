@@ -58,7 +58,8 @@ Installer не переводить на /open-server/payload без отдел�
 - Runtime;
 - CI;
 - Release;
-- Deployment.
+- Deployment;
+- Web Application Foundation.
 
 Runtime Hardening:
 
@@ -101,12 +102,39 @@ Merge commit:
 - scripts/ci/validate-composer.sh;
 - scripts/ci/validate-doc-sync.sh.
 
+## Web Application Foundation
+
+Статус: COMPLETED.
+
+PR:
+#15
+
+Merge:
+feature/web-application-foundation -> main
+
+Добавлено:
+- HTTP Request foundation;
+- HTTP Response foundation;
+- Routing foundation;
+- Route object;
+- View Renderer foundation.
+
+Изменения выполнены поверх Runtime Foundation без изменения:
+- Runtime Core;
+- Module System;
+- Database Foundation;
+- Deployment Layer.
+
 ## Open Server Toolkit
 
 Кандидаты:
 - ASU-Checksum.ps1;
 - ASU-Version.ps1;
 - ASU-Diagnostics.ps1 после адаптации.
+
+## Следующий этап
+
+Application Layer development.
 
 ## Не переносить сейчас
 
