@@ -1,7 +1,7 @@
 # ASU PROJECT STATE
 
 Дата обновления:
-2026-07-21
+2026-07-22
 
 ## Репозиторий
 
@@ -34,7 +34,8 @@ da88624f59cccddb78bb558dec9c9421b50ec5e4
 - Runtime Smoke Validation;
 - Release Documentation package;
 - CI Quality Gates;
-- Documentation Synchronization.
+- Documentation Synchronization;
+- Web Application Foundation.
 
 ## Подтвержденная архитектура
 
@@ -50,28 +51,36 @@ open-server/install/Install-ASU-OSP.ps1
 Источник Runtime:
 /public
 
-## Текущая интеграция
-
-Release Documentation:
-
-Статус:
-COMPLETED
-
-Runtime Smoke Validation:
-
-Статус:
-COMPLETED
-
-CI Quality Gates:
+## Web Application Foundation
 
 Статус:
 COMPLETED
 
 PR:
-#12
+#15
 
-Merge commit:
-863a78e37e5d36b99199eef8980f717387d5b325
+Добавлено:
+- HTTP Request foundation;
+- HTTP Response foundation;
+- Routing foundation;
+- Route object;
+- View Renderer foundation.
+
+Изменения интегрированы в main.
+
+## Текущая интеграция
+
+Release Documentation:
+COMPLETED
+
+Runtime Smoke Validation:
+COMPLETED
+
+CI Quality Gates:
+COMPLETED
+
+Web Application Foundation:
+COMPLETED
 
 ## Приостановленные этапы
 
@@ -84,7 +93,7 @@ PAUSED
 
 ## Следующая точка после разморозки
 
-Определяется отдельным решением.
+Application Layer development.
 
 ## Не выполнять без согласования
 
