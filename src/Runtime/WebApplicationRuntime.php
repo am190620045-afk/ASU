@@ -8,7 +8,9 @@ use ASU\Application\ApplicationFactory;
 use ASU\Application\Bootstrap;
 use ASU\Http\Middleware\AuthMiddleware;
 use ASU\Http\Middleware\MiddlewarePipeline;
+use ASU\Http\Middleware\RequestIdMiddleware;
 use ASU\Http\Middleware\RuntimeContextMiddleware;
+use ASU\Http\Middleware\SecurityHeadersMiddleware;
 use ASU\Http\Request;
 use ASU\Http\Response;
 use ASU\Security\AuthGuard;
@@ -25,7 +27,9 @@ final class WebApplicationRuntime
         $container = ApplicationFactory::createContainer();
 
         $pipeline = new MiddlewarePipeline();
+        $pipeline->add(new RequestIdMiddleware());
         $pipeline->add(new RuntimeContextMiddleware());
+        $pipeline->add(new SecurityHeadersMiddleware());
         $pipeline->add(
             new AuthMiddleware(
                 $container->get(AuthGuard::class)
