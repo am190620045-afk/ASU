@@ -15,3 +15,6 @@ database/*.sql
 # OS files
 .DS_Store
 Thumbs.db
+
+# Composer dependencies
+/vendor/
