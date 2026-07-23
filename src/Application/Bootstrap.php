@@ -5,30 +5,25 @@ declare(strict_types=1);
 namespace ASU\Application;
 
 use ASU\Controller\HomeController;
-use ASU\Controller\AuthController;
 use ASU\Http\Response;
 use ASU\Routing\Route;
 use ASU\Routing\Router;
-use ASU\View\Renderer;
 
 final class Bootstrap
 {
     public static function create(): Application
     {
+        $container = ApplicationFactory::createContainer();
         $router = new Router();
 
-        $renderer = new Renderer(
-            dirname(__DIR__, 2) . '/templates'
-        );
-
-        $controller = new HomeController($renderer);
+        $homeController = $container->get(HomeController::class);
 
         $router->add(
             new Route(
                 'GET',
                 '/',
-                static function () use ($controller): Response {
-                    return $controller->index();
+                static function () use ($homeController): Response {
+                    return $homeController->index();
                 }
             )
         );
