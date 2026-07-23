@@ -6,11 +6,13 @@ namespace ASU\Controller;
 
 use ASU\Http\Response;
 use ASU\Security\AuthGuard;
+use ASU\View\RendererInterface;
 
 final class DashboardController extends Controller
 {
     public function __construct(
-        private readonly AuthGuard $guard
+        private readonly AuthGuard $guard,
+        private readonly RendererInterface $renderer
     ) {
     }
 
@@ -20,6 +22,8 @@ final class DashboardController extends Controller
             return $this->guard->deny();
         }
 
-        return new Response('<h1>ASU Dashboard</h1>');
+        return new Response(
+            $this->renderer->render('dashboard/index.php')
+        );
     }
 }
