@@ -1,6 +1,6 @@
 <h1>ASU Login</h1>
 
-<form method="post">
+<form method="post" action="/login">
     <label>
         Username
         <input name="username" type="text">
