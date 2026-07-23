@@ -10,20 +10,27 @@ use ASU\Http\Response;
 
 final class WebApplicationRuntime
 {
+    private static ?RuntimeContext $context = null;
+
     public static function handle(Request $request): Response
     {
         $kernel = new Kernel();
-        $context = new RuntimeContext();
+        self::$context = new RuntimeContext();
 
         try {
             $kernel->boot();
 
-            $context->set('request_method', $request->method());
-            $context->set('request_uri', $request->uri());
+            self::$context->set('request_method', $request->method());
+            self::$context->set('request_uri', $request->uri());
 
             return Bootstrap::create()->run($request);
         } finally {
             $kernel->shutdown();
         }
+    }
+
+    public static function context(): ?RuntimeContext
+    {
+        return self::$context;
     }
 }
