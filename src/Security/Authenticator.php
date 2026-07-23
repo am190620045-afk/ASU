@@ -19,8 +19,19 @@ final class Authenticator
         string $username,
         string $password
     ): bool {
-        // User lookup will be connected after repository authentication methods are added.
-        return false;
+        $user = $this->users->findByUsername($username);
+
+        if ($user === null) {
+            return false;
+        }
+
+        if (!$this->hasher->verify($password, $user->passwordHash())) {
+            return false;
+        }
+
+        $this->session->login($user->id());
+
+        return true;
     }
 
     public function logout(): void
