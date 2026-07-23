@@ -10,6 +10,7 @@ use ASU\Container\Container;
 use ASU\Controller\AuthController;
 use ASU\Controller\DashboardController;
 use ASU\Controller\HomeController;
+use ASU\Controller\RuntimeController;
 use ASU\Database\DatabaseConnection;
 use ASU\Database\DatabaseInterface;
 use ASU\Security\AuthGuard;
@@ -75,10 +76,14 @@ final class ApplicationFactory
         $container->set(
             DashboardController::class,
             new DashboardController(
-                $container->get(AuthGuard::class),
                 $renderer,
                 $container->get(Session::class)
             )
+        );
+
+        $container->set(
+            RuntimeController::class,
+            new RuntimeController()
         );
 
         return $container;
