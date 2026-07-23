@@ -9,6 +9,7 @@ use ASU\Config\DatabaseConfig;
 use ASU\Container\Container;
 use ASU\Controller\AuthController;
 use ASU\Controller\DashboardController;
+use ASU\Controller\DatabaseController;
 use ASU\Controller\HomeController;
 use ASU\Controller\RuntimeController;
 use ASU\Database\DatabaseConnection;
@@ -84,6 +85,13 @@ final class ApplicationFactory
         $container->set(
             RuntimeController::class,
             new RuntimeController()
+        );
+
+        $container->set(
+            DatabaseController::class,
+            new DatabaseController(
+                $container->get(DatabaseInterface::class)
+            )
         );
 
         return $container;
