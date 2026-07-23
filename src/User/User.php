@@ -11,7 +11,8 @@ final class User
         private readonly string $username,
         private readonly string $email,
         private readonly string $role,
-        private readonly string $status
+        private readonly string $status,
+        private readonly string $passwordHash
     ) {
     }
 
@@ -38,5 +39,10 @@ final class User
     public function status(): string
     {
         return $this->status;
+    }
+
+    public function passwordHash(): string
+    {
+        return $this->passwordHash;
     }
 }
