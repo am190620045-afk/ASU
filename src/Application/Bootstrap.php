@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ASU\Application;
 
+use ASU\Container\Container;
 use ASU\Controller\AuthController;
 use ASU\Controller\DashboardController;
 use ASU\Controller\DatabaseController;
@@ -16,9 +17,8 @@ use ASU\Routing\Router;
 
 final class Bootstrap
 {
-    public static function create(): Application
+    public static function create(Container $container): Application
     {
-        $container = ApplicationFactory::createContainer();
         $router = new Router();
 
         $homeController = $container->get(HomeController::class);
