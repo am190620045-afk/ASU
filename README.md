@@ -19,6 +19,7 @@ Current foundation includes:
 - middleware pipeline;
 - authentication middleware;
 - security middleware;
+- database foundation;
 - runtime diagnostics.
 
 ## Current Status
@@ -43,10 +44,13 @@ Completed:
 - Authentication middleware
 - Dashboard authorization moved to middleware layer
 - Runtime diagnostics endpoint
+- Database configuration foundation
+- Database connection foundation
+- Database diagnostics endpoint
 
 Next development stages:
 
-- Database foundation
+- Database-backed user authentication
 - Administrative panel expansion
 - Theme management system
 - Module management interface
@@ -99,6 +103,44 @@ Returns:
 - request metadata;
 - request identifier;
 - active runtime context values.
+
+## Database Foundation
+
+Database layer provides a unified access abstraction:
+
+```
+Application
+    |
+    v
+DatabaseInterface
+    |
+    v
+DatabaseConnection
+    |
+    v
+PDO
+    |
+    v
+MySQL
+```
+
+Configuration source:
+
+```
+config/database.ini.example
+```
+
+Database diagnostics endpoint:
+
+```
+GET /status/database
+```
+
+Returns:
+
+- database connection state;
+- availability status;
+- connection errors when unavailable.
 
 ## Development Environment
 
