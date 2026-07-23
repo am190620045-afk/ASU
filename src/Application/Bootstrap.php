@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ASU\Application;
 
 use ASU\Controller\AuthController;
+use ASU\Controller\DashboardController;
 use ASU\Controller\HomeController;
 use ASU\Http\Request;
 use ASU\Http\Response;
@@ -20,22 +21,13 @@ final class Bootstrap
 
         $homeController = $container->get(HomeController::class);
         $authController = $container->get(AuthController::class);
+        $dashboardController = $container->get(DashboardController::class);
 
-        $router->add(
-            new Route('GET', '/', static fn (): Response => $homeController->index())
-        );
-
-        $router->add(
-            new Route('GET', '/login', static fn (): Response => $authController->login())
-        );
-
-        $router->add(
-            new Route('POST', '/login', static fn (): Response => $authController->authenticate(Request::fromGlobals()))
-        );
-
-        $router->add(
-            new Route('GET', '/logout', static fn (): Response => $authController->logout())
-        );
+        $router->add(new Route('GET', '/', static fn (): Response => $homeController->index()));
+        $router->add(new Route('GET', '/login', static fn (): Response => $authController->login()));
+        $router->add(new Route('POST', '/login', static fn (): Response => $authController->authenticate(Request::fromGlobals())));
+        $router->add(new Route('GET', '/logout', static fn (): Response => $authController->logout()));
+        $router->add(new Route('GET', '/dashboard', static fn (): Response => $dashboardController->index()));
 
         return new Application($router);
     }
