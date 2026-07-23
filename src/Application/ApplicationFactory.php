@@ -16,6 +16,7 @@ use ASU\Database\DatabaseConnection;
 use ASU\Database\DatabaseInterface;
 use ASU\Security\AuthGuard;
 use ASU\Security\Authenticator;
+use ASU\Security\CurrentUser;
 use ASU\Security\PasswordHasher;
 use ASU\Security\Session;
 use ASU\User\UserRepository;
@@ -42,6 +43,13 @@ final class ApplicationFactory
         $container->set(UserRepository::class, new UserRepository($database));
         $container->set(PasswordHasher::class, new PasswordHasher());
         $container->set(Session::class, new Session());
+        $container->set(
+            CurrentUser::class,
+            new CurrentUser(
+                $container->get(Session::class),
+                $container->get(UserRepository::class)
+            )
+        );
 
         $container->set(
             Authenticator::class,
