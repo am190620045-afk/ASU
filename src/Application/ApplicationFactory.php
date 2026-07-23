@@ -76,7 +76,8 @@ final class ApplicationFactory
             DashboardController::class,
             new DashboardController(
                 $container->get(AuthGuard::class),
-                $renderer
+                $renderer,
+                $container->get(Session::class)
             )
         );
 
