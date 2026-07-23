@@ -8,7 +8,8 @@ final class Request
 {
     public function __construct(
         private readonly string $method,
-        private readonly string $uri
+        private readonly string $uri,
+        private readonly array $input = []
     ) {
     }
 
@@ -16,7 +17,8 @@ final class Request
     {
         return new self(
             $_SERVER['REQUEST_METHOD'] ?? 'GET',
-            $_SERVER['REQUEST_URI'] ?? '/'
+            $_SERVER['REQUEST_URI'] ?? '/',
+            $_POST
         );
     }
 
@@ -28,5 +30,10 @@ final class Request
     public function uri(): string
     {
         return $this->uri;
+    }
+
+    public function input(string $key, mixed $default = null): mixed
+    {
+        return $this->input[$key] ?? $default;
     }
 }
