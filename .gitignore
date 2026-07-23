@@ -18,3 +18,7 @@ Thumbs.db
 
 # Composer dependencies
 /vendor/
+
+# Local Open Server runtime
+.openserver/
+*.local.ini
