@@ -1,7 +1,7 @@
 # ASU PROJECT STATE
 
 Дата обновления:
-2026-07-22
+2026-07-23
 
 ## Репозиторий
 
@@ -35,7 +35,8 @@ da88624f59cccddb78bb558dec9c9421b50ec5e4
 - Release Documentation package;
 - CI Quality Gates;
 - Documentation Synchronization;
-- Web Application Foundation.
+- Web Application Foundation;
+- Open Server Web Runtime Validation.
 
 ## Подтвержденная архитектура
 
@@ -68,6 +69,30 @@ PR:
 
 Изменения интегрированы в main.
 
+## Web Runtime Validation
+
+Статус:
+PASSED
+
+Среда проверки:
+- Open Server Panel 6.5.1;
+- Apache;
+- PHP 8.5;
+- минимальная поддерживаемая версия PHP: 8.3.
+
+Проверено:
+- public entrypoint;
+- Composer autoload;
+- Application Bootstrap;
+- HTTP Request/Response;
+- Router;
+- Controller layer;
+- View Renderer;
+- template rendering.
+
+Документ:
+docs/WEB_RUNTIME_VALIDATION.md
+
 ## Текущая интеграция
 
 Release Documentation:
@@ -82,18 +107,19 @@ COMPLETED
 Web Application Foundation:
 COMPLETED
 
-## Приостановленные этапы
+Web Runtime Validation:
+COMPLETED
 
-Open Server Toolkit helpers:
-
-Статус:
-PAUSED
-
-Разработка не начиналась.
-
-## Следующая точка после разморозки
+## Следующая точка разработки
 
 Application Layer development.
+
+План:
+
+1. Database Foundation.
+2. User Authentication.
+3. Administration Panel.
+4. Theme Management System.
 
 ## Не выполнять без согласования
 
