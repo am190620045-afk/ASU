@@ -7,12 +7,16 @@ namespace ASU\Application;
 use ASU\Config\ConfigRepository;
 use ASU\Config\DatabaseConfig;
 use ASU\Container\Container;
+use ASU\Controller\AuthController;
+use ASU\Controller\HomeController;
 use ASU\Database\DatabaseConnection;
 use ASU\Database\DatabaseInterface;
 use ASU\Security\Authenticator;
 use ASU\Security\PasswordHasher;
 use ASU\Security\Session;
 use ASU\User\UserRepository;
+use ASU\View\Renderer;
+use ASU\View\RendererInterface;
 
 final class ApplicationFactory
 {
@@ -20,40 +24,20 @@ final class ApplicationFactory
     {
         $container = new Container();
 
-        $configRepository = new ConfigRepository();
-
         $databaseConfig = new DatabaseConfig(
-            $configRepository->database()
+            (new ConfigRepository())->database()
         );
 
-        $container->set(
-            DatabaseConfig::class,
-            $databaseConfig
-        );
+        $container->set(DatabaseConfig::class, $databaseConfig);
 
         $database = new DatabaseConnection(
             $databaseConfig->values()
         );
 
-        $container->set(
-            DatabaseInterface::class,
-            $database
-        );
-
-        $container->set(
-            UserRepository::class,
-            new UserRepository($database)
-        );
-
-        $container->set(
-            PasswordHasher::class,
-            new PasswordHasher()
-        );
-
-        $container->set(
-            Session::class,
-            new Session()
-        );
+        $container->set(DatabaseInterface::class, $database);
+        $container->set(UserRepository::class, new UserRepository($database));
+        $container->set(PasswordHasher::class, new PasswordHasher());
+        $container->set(Session::class, new Session());
 
         $container->set(
             Authenticator::class,
@@ -61,6 +45,25 @@ final class ApplicationFactory
                 $container->get(UserRepository::class),
                 $container->get(PasswordHasher::class),
                 $container->get(Session::class)
+            )
+        );
+
+        $renderer = new Renderer(
+            dirname(__DIR__, 2) . '/templates'
+        );
+
+        $container->set(RendererInterface::class, $renderer);
+
+        $container->set(
+            HomeController::class,
+            new HomeController($renderer)
+        );
+
+        $container->set(
+            AuthController::class,
+            new AuthController(
+                $renderer,
+                $container->get(Authenticator::class)
             )
         );
 
