@@ -47,10 +47,6 @@ open-server/install/Install-ASU-OSP.ps1
 
 Installer не переводить на /open-server/payload без отдельного архитектурного решения.
 
-## Анализ веток 2026-07-20
-
-Проверены дополнительные ветки относительно main.
-
 ## Интеграционные решения
 
 Интеграция выполняется пакетами:
@@ -65,42 +61,9 @@ Runtime Hardening:
 
 Статус: COMPLETED.
 
-Полный cherry-pick commit 16347e5529fa3792b94c1f65ac2f7818f6924070 не использовать.
-
-Причина:
-- Runtime изменения уже интегрированы;
-- остальные части commit относятся к другим зонам.
-
 Runtime Smoke Validation:
 
 Статус: COMPLETED.
-
-## Release Documentation
-
-Статус: COMPLETED.
-
-Пакет release-документации:
-- RELEASE.md;
-- RELEASE_NOTES.md;
-- RELEASE_GATE.md;
-- FINAL_RELEASE_CHECK.md.
-
-## CI Quality Gates
-
-Статус: COMPLETED.
-
-PR:
-#12
-
-Merge commit:
-863a78e37e5d36b99199eef8980f717387d5b325
-
-Добавлено:
-- .github/workflows/quality-gates.yml;
-- scripts/ci/check-forbidden-paths.sh;
-- scripts/ci/validate-php.sh;
-- scripts/ci/validate-composer.sh;
-- scripts/ci/validate-doc-sync.sh.
 
 ## Web Application Foundation
 
@@ -125,16 +88,49 @@ feature/web-application-foundation -> main
 - Database Foundation;
 - Deployment Layer.
 
+## Web Runtime Validation
+
+Статус: PASSED.
+
+Проверенная среда:
+
+- Open Server Panel 6.5.1;
+- Apache;
+- PHP 8.5.
+
+Минимальная поддерживаемая версия PHP:
+8.3.
+
+Проверено:
+- public entrypoint;
+- Composer autoload;
+- Application bootstrap;
+- HTTP layer;
+- Routing;
+- Controller;
+- View Renderer;
+- Template rendering.
+
+Документ:
+docs/WEB_RUNTIME_VALIDATION.md
+
+## Следующий этап
+
+Application Layer development.
+
+Порядок разработки:
+
+1. Database Foundation.
+2. User Authentication.
+3. Administration Panel.
+4. Theme Management System.
+
 ## Open Server Toolkit
 
 Кандидаты:
 - ASU-Checksum.ps1;
 - ASU-Version.ps1;
 - ASU-Diagnostics.ps1 после адаптации.
-
-## Следующий этап
-
-Application Layer development.
 
 ## Не переносить сейчас
 
