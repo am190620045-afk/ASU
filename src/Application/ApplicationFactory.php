@@ -8,9 +8,11 @@ use ASU\Config\ConfigRepository;
 use ASU\Config\DatabaseConfig;
 use ASU\Container\Container;
 use ASU\Controller\AuthController;
+use ASU\Controller\DashboardController;
 use ASU\Controller\HomeController;
 use ASU\Database\DatabaseConnection;
 use ASU\Database\DatabaseInterface;
+use ASU\Security\AuthGuard;
 use ASU\Security\Authenticator;
 use ASU\Security\PasswordHasher;
 use ASU\Security\Session;
@@ -54,16 +56,27 @@ final class ApplicationFactory
 
         $container->set(RendererInterface::class, $renderer);
 
-        $container->set(
-            HomeController::class,
-            new HomeController($renderer)
-        );
+        $container->set(HomeController::class, new HomeController($renderer));
 
         $container->set(
             AuthController::class,
             new AuthController(
                 $renderer,
                 $container->get(Authenticator::class)
+            )
+        );
+
+        $container->set(
+            AuthGuard::class,
+            new AuthGuard(
+                $container->get(Session::class)
+            )
+        );
+
+        $container->set(
+            DashboardController::class,
+            new DashboardController(
+                $container->get(AuthGuard::class)
             )
         );
 
