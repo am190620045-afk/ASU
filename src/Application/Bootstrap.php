@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ASU\Application;
 
 use ASU\Controller\HomeController;
+use ASU\Controller\AuthController;
 use ASU\Http\Response;
 use ASU\Routing\Route;
 use ASU\Routing\Router;
