@@ -38,6 +38,30 @@ final class UserRepository
             return null;
         }
 
+        return $this->hydrate($row);
+    }
+
+    public function findById(int $id): ?User
+    {
+        $statement = $this->database
+            ->connection()
+            ->prepare('SELECT * FROM users WHERE id = :id LIMIT 1');
+
+        $statement->execute([
+            'id' => $id,
+        ]);
+
+        $row = $statement->fetch();
+
+        if ($row === false) {
+            return null;
+        }
+
+        return $this->hydrate($row);
+    }
+
+    private function hydrate(array $row): User
+    {
         return new User(
             (int) $row['id'],
             $row['username'],
