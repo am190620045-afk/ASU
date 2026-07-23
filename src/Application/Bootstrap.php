@@ -6,6 +6,7 @@ namespace ASU\Application;
 
 use ASU\Controller\AuthController;
 use ASU\Controller\HomeController;
+use ASU\Http\Request;
 use ASU\Http\Response;
 use ASU\Routing\Route;
 use ASU\Routing\Router;
@@ -21,33 +22,19 @@ final class Bootstrap
         $authController = $container->get(AuthController::class);
 
         $router->add(
-            new Route(
-                'GET',
-                '/',
-                static function () use ($homeController): Response {
-                    return $homeController->index();
-                }
-            )
+            new Route('GET', '/', static fn (): Response => $homeController->index())
         );
 
         $router->add(
-            new Route(
-                'GET',
-                '/login',
-                static function () use ($authController): Response {
-                    return $authController->login();
-                }
-            )
+            new Route('GET', '/login', static fn (): Response => $authController->login())
         );
 
         $router->add(
-            new Route(
-                'GET',
-                '/logout',
-                static function () use ($authController): Response {
-                    return $authController->logout();
-                }
-            )
+            new Route('POST', '/login', static fn (): Response => $authController->authenticate(Request::fromGlobals()))
+        );
+
+        $router->add(
+            new Route('GET', '/logout', static fn (): Response => $authController->logout())
         );
 
         return new Application($router);
