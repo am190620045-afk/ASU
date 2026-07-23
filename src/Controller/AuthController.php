@@ -35,13 +35,13 @@ final class AuthController extends Controller
             return new Response('Authentication failed', 401);
         }
 
-        return new Response('Logged in');
+        return Response::redirect('/dashboard');
     }
 
     public function logout(): Response
     {
         $this->authenticator->logout();
 
-        return new Response('Logged out');
+        return Response::redirect('/login');
     }
 }
