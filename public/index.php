@@ -4,16 +4,14 @@ declare(strict_types=1);
 
 require dirname(__DIR__) . '/vendor/autoload.php';
 
-use ASU\Application\Bootstrap;
 use ASU\Http\Request;
 use ASU\Runtime\ExceptionHandler;
+use ASU\Runtime\WebApplicationRuntime;
 
 header('Content-Type: text/html; charset=utf-8');
 
 try {
-    $application = Bootstrap::create();
-
-    $response = $application->run(
+    $response = WebApplicationRuntime::handle(
         Request::fromGlobals()
     );
 
