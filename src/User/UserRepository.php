@@ -21,4 +21,30 @@ final class UserRepository
 
         return (int) $statement->fetchColumn();
     }
+
+    public function findByUsername(string $username): ?User
+    {
+        $statement = $this->database
+            ->connection()
+            ->prepare('SELECT * FROM users WHERE username = :username LIMIT 1');
+
+        $statement->execute([
+            'username' => $username,
+        ]);
+
+        $row = $statement->fetch();
+
+        if ($row === false) {
+            return null;
+        }
+
+        return new User(
+            (int) $row['id'],
+            $row['username'],
+            $row['email'],
+            $row['role'],
+            $row['status'],
+            $row['password_hash']
+        );
+    }
 }
