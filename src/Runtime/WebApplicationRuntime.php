@@ -42,9 +42,11 @@ final class WebApplicationRuntime
             self::$context->set('request_method', $request->method());
             self::$context->set('request_uri', $request->uri());
 
+            $application = Bootstrap::create($container);
+
             return $pipeline->handle(
                 $request,
-                static fn (Request $request): Response => Bootstrap::create()->run($request)
+                static fn (Request $request): Response => $application->run($request)
             );
         } finally {
             $kernel->shutdown();
