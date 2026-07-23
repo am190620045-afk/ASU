@@ -1,0 +1,54 @@
+<?php
+
+declare(strict_types=1);
+
+namespace ASU\Database;
+
+use PDO;
+use PDOException;
+
+final class DatabaseConnection implements DatabaseInterface
+{
+    private ?PDO $pdo = null;
+
+    public function __construct(
+        private readonly array $config
+    ) {
+    }
+
+    public function connection(): PDO
+    {
+        if ($this->pdo instanceof PDO) {
+            return $this->pdo;
+        }
+
+        $dsn = sprintf(
+            '%s:host=%s;port=%s;dbname=%s;charset=%s',
+            $this->config['driver'],
+            $this->config['host'],
+            $this->config['port'],
+            $this->config['database'],
+            $this->config['charset']
+        );
+
+        try {
+            $this->pdo = new PDO(
+                $dsn,
+                $this->config['username'],
+                $this->config['password'],
+                [
+                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                ]
+            );
+        } catch (PDOException $exception) {
+            throw new PDOException(
+                'ASU database connection failed: ' . $exception->getMessage(),
+                (int) $exception->getCode(),
+                $exception
+            );
+        }
+
+        return $this->pdo;
+    }
+}
