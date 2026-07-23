@@ -16,13 +16,33 @@ final class Session
     public function login(int $userId): void
     {
         $this->start();
+
+        session_regenerate_id(true);
+
         $_SESSION['user_id'] = $userId;
     }
 
     public function logout(): void
     {
         $this->start();
-        unset($_SESSION['user_id']);
+
+        $_SESSION = [];
+
+        if (ini_get('session.use_cookies')) {
+            $params = session_get_cookie_params();
+
+            setcookie(
+                session_name(),
+                '',
+                time() - 42000,
+                $params['path'],
+                $params['domain'],
+                $params['secure'],
+                $params['httponly']
+            );
+        }
+
+        session_destroy();
     }
 
     public function userId(): ?int
