@@ -78,17 +78,30 @@ Do not edit project source directly in:
 C:\OSPanel\home\asu.local
 ```
 
-## Verification
+## Verification Endpoints
+
+Application health checks use the ASU runtime container.
 
 Check:
 
 ```
+/status/runtime
+/status/database
 /login
 /dashboard
-/db-health.php
 ```
 
-Expected flow:
+Expected runtime flow:
+
+```
+GET /status/database
+    -> DatabaseController
+    -> DatabaseInterface
+    -> DatabaseConnection
+    -> MySQL
+```
+
+Authentication flow:
 
 ```
 POST /login
