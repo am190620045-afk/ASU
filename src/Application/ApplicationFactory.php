@@ -55,7 +55,6 @@ final class ApplicationFactory
         );
 
         $container->set(RendererInterface::class, $renderer);
-
         $container->set(HomeController::class, new HomeController($renderer));
 
         $container->set(
@@ -76,7 +75,8 @@ final class ApplicationFactory
         $container->set(
             DashboardController::class,
             new DashboardController(
-                $container->get(AuthGuard::class)
+                $container->get(AuthGuard::class),
+                $renderer
             )
         );
 
