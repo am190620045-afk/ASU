@@ -6,6 +6,7 @@ namespace ASU\Runtime;
 
 use ASU\Application\Bootstrap;
 use ASU\Http\Middleware\MiddlewarePipeline;
+use ASU\Http\Middleware\RuntimeContextMiddleware;
 use ASU\Http\Request;
 use ASU\Http\Response;
 
@@ -19,6 +20,7 @@ final class WebApplicationRuntime
         self::$context = new RuntimeContext();
 
         $pipeline = new MiddlewarePipeline();
+        $pipeline->add(new RuntimeContextMiddleware());
 
         try {
             $kernel->boot();
