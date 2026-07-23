@@ -1,8 +1,12 @@
 <?php
+
+declare(strict_types=1);
+
 header('Content-Type: text/html; charset=utf-8');
 
 $status = false;
-$message = 'NOT CONFIGURED';
+$databaseStatus = 'NOT CONFIGURED';
+$tableStatus = 'NOT CHECKED';
 
 $configFile = dirname(__DIR__) . '/config/database.ini';
 
@@ -19,14 +23,26 @@ if (file_exists($configFile)) {
             $config['charset'] ?? 'utf8mb4'
         );
 
-        new PDO($dsn, $config['username'] ?? 'root', $config['password'] ?? '', [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        ]);
+        $pdo = new PDO(
+            $dsn,
+            $config['username'] ?? 'root',
+            $config['password'] ?? '',
+            [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            ]
+        );
 
         $status = true;
-        $message = 'CONNECTED';
-    } catch (Throwable $e) {
-        $message = 'FAILED';
+        $databaseStatus = 'CONNECTED';
+
+        try {
+            $pdo->query('SELECT 1 FROM users LIMIT 1');
+            $tableStatus = 'OK';
+        } catch (Throwable $exception) {
+            $tableStatus = 'MISSING';
+        }
+    } catch (Throwable $exception) {
+        $databaseStatus = 'FAILED';
     }
 }
 
@@ -42,7 +58,8 @@ if (file_exists($configFile)) {
 <div class="card">
 <h1>ASU Database Check</h1>
 <p>Driver: MySQL</p>
-<p>Database status: <span class="<?= $status ? 'ok':'fail' ?>"><?= $message ?></span></p>
+<p>Database status: <span class="<?= $status ? 'ok':'fail' ?>"><?= $databaseStatus ?></span></p>
+<p>Users table: <span class="<?= $tableStatus === 'OK' ? 'ok':'fail' ?>"><?= $tableStatus ?></span></p>
 <p>PHP: <?= PHP_VERSION ?></p>
 </div>
 </body>
