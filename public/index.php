@@ -19,6 +19,10 @@ try {
 
     http_response_code($response->statusCode());
 
+    foreach ($response->headers() as $name => $value) {
+        header($name . ': ' . $value);
+    }
+
     echo $response->content();
 } catch (\Throwable $exception) {
     $handler = new ExceptionHandler();
