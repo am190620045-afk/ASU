@@ -6,14 +6,14 @@ namespace ASU\Controller;
 
 use ASU\Http\Response;
 use ASU\Security\AuthGuard;
-use ASU\Security\Session;
+use ASU\Security\CurrentUser;
 use ASU\View\RendererInterface;
 
 final class DashboardController extends Controller
 {
     public function __construct(
         private readonly RendererInterface $renderer,
-        private readonly Session $session,
+        private readonly CurrentUser $currentUser,
         private readonly AuthGuard $guard
     ) {
     }
@@ -28,7 +28,7 @@ final class DashboardController extends Controller
             $this->renderer->render(
                 'dashboard/index.php',
                 [
-                    'userId' => $this->session->userId(),
+                    'user' => $this->currentUser->get(),
                 ]
             )
         );
