@@ -13,9 +13,13 @@ final class WebApplicationRuntime
     public static function handle(Request $request): Response
     {
         $kernel = new Kernel();
+        $context = new RuntimeContext();
 
         try {
             $kernel->boot();
+
+            $context->set('request_method', $request->method());
+            $context->set('request_uri', $request->uri());
 
             return Bootstrap::create()->run($request);
         } finally {
