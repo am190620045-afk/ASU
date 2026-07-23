@@ -8,15 +8,18 @@ Automated System Unit (ASU) application platform.
 
 ASU is a modular PHP application platform moving from runtime verification and deployment hardening into functional web application development.
 
-The current milestone delivers the first web application foundation:
+Current foundation includes:
 
 - application bootstrap;
 - HTTP application flow;
 - routing foundation;
 - view rendering foundation;
 - runtime bridge;
-- middleware pipeline foundation;
-- authentication middleware foundation.
+- runtime context;
+- middleware pipeline;
+- authentication middleware;
+- security middleware;
+- runtime diagnostics.
 
 ## Current Status
 
@@ -35,12 +38,15 @@ Completed:
 - RuntimeContext foundation
 - Middleware pipeline foundation
 - Runtime context middleware
+- Request ID middleware
+- Security headers middleware
 - Authentication middleware
+- Dashboard authorization moved to middleware layer
+- Runtime diagnostics endpoint
 
 Next development stages:
 
 - Database foundation
-- Middleware security layer
 - Administrative panel expansion
 - Theme management system
 - Module management interface
@@ -56,12 +62,13 @@ HTTP Request
 WebApplicationRuntime
     |
     v
-RuntimeContext
-    |
-    v
 MiddlewarePipeline
     |
+    +--> RequestIdMiddleware
+    |
     +--> RuntimeContextMiddleware
+    |
+    +--> SecurityHeadersMiddleware
     |
     +--> AuthMiddleware
     |
@@ -77,6 +84,21 @@ Controller
     v
 Response
 ```
+
+## Runtime Diagnostics
+
+Available diagnostic endpoint:
+
+```
+GET /status/runtime
+```
+
+Returns:
+
+- runtime status;
+- request metadata;
+- request identifier;
+- active runtime context values.
 
 ## Development Environment
 
