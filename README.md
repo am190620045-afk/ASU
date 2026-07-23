@@ -6,7 +6,7 @@ Automated System Unit (ASU) application platform.
 
 ## Overview
 
-ASU is a modular PHP application platform that is moving from runtime verification and deployment hardening into functional web application development.
+ASU is a modular PHP application platform moving from runtime verification and deployment hardening into functional web application development.
 
 The current milestone delivers the first web application foundation:
 
@@ -14,7 +14,9 @@ The current milestone delivers the first web application foundation:
 - HTTP application flow;
 - routing foundation;
 - view rendering foundation;
-- home page runtime entrypoint.
+- runtime bridge;
+- middleware pipeline foundation;
+- authentication middleware foundation.
 
 ## Current Status
 
@@ -28,15 +30,53 @@ Completed:
 - View renderer foundation
 - Home controller foundation
 - Public web entrypoint
+- Authentication system foundation
+- Session management foundation
+- RuntimeContext foundation
+- Middleware pipeline foundation
+- Runtime context middleware
+- Authentication middleware
 
 Next development stages:
 
 - Database foundation
-- User authentication system
-- Registration and login
-- Session management
-- Administrative panel
+- Middleware security layer
+- Administrative panel expansion
 - Theme management system
+- Module management interface
+
+## Runtime Request Flow
+
+Current HTTP processing pipeline:
+
+```
+HTTP Request
+    |
+    v
+WebApplicationRuntime
+    |
+    v
+RuntimeContext
+    |
+    v
+MiddlewarePipeline
+    |
+    +--> RuntimeContextMiddleware
+    |
+    +--> AuthMiddleware
+    |
+    v
+Application Bootstrap
+    |
+    v
+Router
+    |
+    v
+Controller
+    |
+    v
+Response
+```
 
 ## Development Environment
 
@@ -70,26 +110,6 @@ Project deployment testing path:
 
 ```
 C:\OSPanel\home\asu.local
-```
-
-## Architecture Direction
-
-The next functional architecture stage:
-
-```
-Database
-    |
-    v
-User System
-    |
-    v
-Authentication
-    |
-    v
-Admin Panel
-    |
-    v
-Theme System
 ```
 
 ## Technology Stack
