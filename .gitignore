@@ -9,8 +9,9 @@ build/*
 *.tmp
 *.temp
 
-# Local database dumps
-database/*.sql
+# Local database dumps only
+# Keep migrations and seeds tracked
+database/dumps/*.sql
 
 # OS files
 .DS_Store
