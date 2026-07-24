@@ -57,12 +57,58 @@ open-server/install/Install-ASU-OSP.ps1
 Статус:
 COMPLETED
 
+PR:
+#15
+
 Добавлено:
 - HTTP Request foundation;
 - HTTP Response foundation;
 - Routing foundation;
 - Route object;
 - View Renderer foundation.
+
+Изменения интегрированы в main.
+
+## Web Runtime Validation
+
+Статус:
+PASSED
+
+Среда проверки:
+- Open Server Panel 6.5.1;
+- Apache;
+- PHP 8.5;
+- минимальная поддерживаемая версия PHP: 8.3.
+
+Проверено:
+- public entrypoint;
+- Composer autoload;
+- Application Bootstrap;
+- HTTP Request/Response;
+- Router;
+- Controller layer;
+- View Renderer;
+- template rendering.
+
+Документ:
+docs/WEB_RUNTIME_VALIDATION.md
+
+## Текущая интеграция
+
+Release Documentation:
+COMPLETED
+
+Runtime Smoke Validation:
+COMPLETED
+
+CI Quality Gates:
+COMPLETED
+
+Web Application Foundation:
+COMPLETED
+
+Web Runtime Validation:
+COMPLETED
 
 ## Auth Core Stabilization
 
