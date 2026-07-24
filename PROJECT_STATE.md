@@ -22,6 +22,9 @@ FROZEN
 Freeze document:
 _ASU_ANALYSIS_EXPORT/FREEZE_POINT_2026-07-21.md
 
+Baseline:
+da88624f59cccddb78bb558dec9c9421b50ec5e4
+
 ## Выполнено
 
 Завершено:
@@ -35,10 +38,31 @@ _ASU_ANALYSIS_EXPORT/FREEZE_POINT_2026-07-21.md
 - Web Application Foundation;
 - Open Server Web Runtime Validation.
 
+## Подтвержденная архитектура
+
+Runtime:
+/public
+
+Deployment Payload:
+/open-server/payload
+
+Installer:
+open-server/install/Install-ASU-OSP.ps1
+
+Источник Runtime:
+/public
+
 ## Web Application Foundation
 
 Статус:
 COMPLETED
+
+Добавлено:
+- HTTP Request foundation;
+- HTTP Response foundation;
+- Routing foundation;
+- Route object;
+- View Renderer foundation.
 
 ## Auth Core Stabilization
 
@@ -74,4 +98,5 @@ Public routes:
 - перенос Installer на payload;
 - Migration Engine;
 - Rollback Engine;
+- feature/v0.2.0-beta прямой merge;
 - изменение deployment архитектуры.
