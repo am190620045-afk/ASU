@@ -21,6 +21,30 @@ GitHub является единственным источником измен
 - Open Server проверки;
 - тестирования.
 
+## Архитектура проекта
+
+Подтверждено разделение:
+
+Runtime:
+/public
+
+Open Server Toolkit:
+/open-server
+
+Deployment Payload:
+/open-server/payload
+
+## Web Application Foundation
+
+Статус: COMPLETED.
+
+Добавлено:
+- HTTP Request foundation;
+- HTTP Response foundation;
+- Routing foundation;
+- Route object;
+- View Renderer foundation.
+
 ## Текущий этап
 
 Application Layer development.
