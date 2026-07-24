@@ -10,6 +10,17 @@
 - PROJECT_HANDOVER.md;
 - _ASU_ANALYSIS_EXPORT/.
 
+## Development Freeze Point
+
+Статус:
+FROZEN
+
+Дата:
+2026-07-21
+
+Документ:
+_ASU_ANALYSIS_EXPORT/FREEZE_POINT_2026-07-21.md
+
 ## Репозиторий
 
 am190620045-afk/ASU
