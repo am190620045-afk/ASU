@@ -1,0 +1,7 @@
+# ASU Open Server Deployment Kit checksums
+
+Generated during package build.
+
+Format:
+
+SHA256  filename

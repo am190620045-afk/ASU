@@ -1,0 +1,11 @@
+{
+  "name": "ASU",
+  "version": "0.2.0",
+  "platform": "open-server",
+  "requires": {
+    "php": ">=8.3",
+    "php_target": "8.5",
+    "mysql": "8.4",
+    "server": "Apache"
+  }
+}
