@@ -26,13 +26,43 @@ GitHub является единственным источником измен
 Подтверждено разделение:
 
 Runtime:
+
 /public
 
 Open Server Toolkit:
+
 /open-server
 
 Deployment Payload:
+
 /open-server/payload
+
+## Решение по Installer
+
+open-server/install/Install-ASU-OSP.ps1
+
+Использует Runtime источник:
+
+/public
+
+Installer не переводить на /open-server/payload без отдельного архитектурного решения.
+
+## Интеграционные решения
+
+Интеграция выполняется пакетами:
+- Runtime;
+- CI;
+- Release;
+- Deployment;
+- Web Application Foundation.
+
+Runtime Hardening:
+
+Статус: COMPLETED.
+
+Runtime Smoke Validation:
+
+Статус: COMPLETED.
 
 ## Web Application Foundation
 
@@ -44,6 +74,26 @@ Deployment Payload:
 - Routing foundation;
 - Route object;
 - View Renderer foundation.
+
+Изменения выполнены поверх Runtime Foundation без изменения:
+- Runtime Core;
+- Module System;
+- Database Foundation;
+- Deployment Layer.
+
+## Web Runtime Validation
+
+Статус: PASSED.
+
+Проверено:
+- public entrypoint;
+- Composer autoload;
+- Application bootstrap;
+- HTTP layer;
+- Routing;
+- Controller;
+- View Renderer;
+- Template rendering.
 
 ## Текущий этап
 
