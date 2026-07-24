@@ -1,7 +1,7 @@
 # ASU PROJECT STATE
 
 Дата обновления:
-2026-07-23
+2026-07-24
 
 ## Репозиторий
 
@@ -22,9 +22,6 @@ FROZEN
 Freeze document:
 _ASU_ANALYSIS_EXPORT/FREEZE_POINT_2026-07-21.md
 
-Baseline:
-da88624f59cccddb78bb558dec9c9421b50ec5e4
-
 ## Выполнено
 
 Завершено:
@@ -38,88 +35,38 @@ da88624f59cccddb78bb558dec9c9421b50ec5e4
 - Web Application Foundation;
 - Open Server Web Runtime Validation.
 
-## Подтвержденная архитектура
-
-Runtime:
-/public
-
-Deployment Payload:
-/open-server/payload
-
-Installer:
-open-server/install/Install-ASU-OSP.ps1
-
-Источник Runtime:
-/public
-
 ## Web Application Foundation
 
 Статус:
 COMPLETED
 
-PR:
-#15
-
-Добавлено:
-- HTTP Request foundation;
-- HTTP Response foundation;
-- Routing foundation;
-- Route object;
-- View Renderer foundation.
-
-Изменения интегрированы в main.
-
-## Web Runtime Validation
+## Auth Core Stabilization
 
 Статус:
-PASSED
+IN PROGRESS
 
-Среда проверки:
-- Open Server Panel 6.5.1;
-- Apache;
-- PHP 8.5;
-- минимальная поддерживаемая версия PHP: 8.3.
+Выполнено:
+- DI Container integration;
+- ApplicationFactory authentication wiring;
+- AuthMiddleware integration;
+- AuthGuard session validation;
+- public route handling in AuthMiddleware.
 
-Проверено:
-- public entrypoint;
-- Composer autoload;
-- Application Bootstrap;
-- HTTP Request/Response;
-- Router;
-- Controller layer;
-- View Renderer;
-- template rendering.
+Изменён:
+- src/Http/Middleware/AuthMiddleware.php
 
-Документ:
-docs/WEB_RUNTIME_VALIDATION.md
-
-## Текущая интеграция
-
-Release Documentation:
-COMPLETED
-
-Runtime Smoke Validation:
-COMPLETED
-
-CI Quality Gates:
-COMPLETED
-
-Web Application Foundation:
-COMPLETED
-
-Web Runtime Validation:
-COMPLETED
+Public routes:
+- GET /;
+- GET /login;
+- POST /login.
 
 ## Следующая точка разработки
 
-Application Layer development.
-
-План:
-
-1. Database Foundation.
-2. User Authentication.
-3. Administration Panel.
-4. Theme Management System.
+1. Завершить Auth Core verification.
+2. RBAC.
+3. User Management.
+4. Administration Panel.
+5. Audit Log.
 
 ## Не выполнять без согласования
 
@@ -127,5 +74,4 @@ Application Layer development.
 - перенос Installer на payload;
 - Migration Engine;
 - Rollback Engine;
-- feature/v0.2.0-beta прямой merge;
 - изменение deployment архитектуры.
